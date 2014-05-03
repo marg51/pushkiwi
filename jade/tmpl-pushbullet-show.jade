@@ -1,0 +1,8 @@
+h3 {{name}}
+
+a(ng-click='copy("http://code.uto.io/"+name+".html")') http://code.uto.io/{{name}}.html
+
+button(ng-click='wannadelete=true',ng-hide='wannadelete') Delete
+button(ng-click='delete()',ng-show='wannadelete') Delete now
+
+div(ng-bind-html='raw')

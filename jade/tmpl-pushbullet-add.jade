@@ -1,0 +1,17 @@
+h3 Add
+form(name='hl')
+	label(ng-class='{"color-green":langExists}') lang
+		input(ng-model='form.lang')
+	br
+	label(ng-class='{"color-orange":nameExists,"color-red":!hl.name.$valid}') name
+		input(ng-model='form.name',required,name='name')
+	br
+	label(ng-class='{"color-red":!hl.text.$valid}') code
+		textarea(ng-model='form.text',required,name='text')
+	br
+	button(ng-click='paste()') paste
+	button(ng-click='see()',ng-show='hl.$valid') Previsualisation
+	button(ng-click='send()',ng-show='hl.$valid') Send
+
+h4 Previsualisation
+div(ng-bind-html='prev')

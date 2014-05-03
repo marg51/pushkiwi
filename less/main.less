@@ -1,0 +1,49 @@
+[pushbullet] {
+	margin-bottom: 5px;
+	padding: 2px;
+	div.type {
+	}
+	div.body {
+		h1 {
+			text-align: left;
+			margin: 0;
+			border-bottom: 1px dashed #DDD;
+			font-size: 22px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			padding-right: 30px;
+			color: #34495e;
+		}
+		span.date {
+			float: right;
+			font-size: 10px;
+			display: inline-block;
+			line-height: 22px;
+			color: gray;
+		}
+		background: white;
+		border-radius: 10px;
+		border: 3px solid black;
+		padding: 10px;
+		min-height: 70px;
+		text-align: left;
+		&.isEmitted {
+			background: aliceblue;
+			border-style: dotted;
+		}
+
+		&.type-note {
+			border-color: darkcyan;
+		}
+		&.type-file {
+			border-color: darkmagenta;
+		}
+		&.type-link {
+			border-color: darkgoldenrod;
+		}
+		&.type-list {
+			border-color: crimson;
+		}
+	}
+}

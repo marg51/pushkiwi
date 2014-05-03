@@ -1,0 +1,7 @@
+h1 {{pushbullet.title}}
+div
+	ul
+		li(ng-repeat='item in pushbullet.items')
+			label 
+				input(type='checkbox',ng-model='item.checked',ng-change='save()')
+				| {{item.text}}
