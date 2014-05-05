@@ -1,3 +1,5 @@
+@import (reference) '../../../less/variables.less';
+
 [pushbullet] {
 	margin-bottom: 5px;
 	padding: 2px;
@@ -37,16 +39,42 @@
 		}
 
 		&.type-note {
-			border-color: darkcyan;
+			border-color: #e67e22;
 		}
 		&.type-file {
-			border-color: darkmagenta;
+			border-color: #e74c3c;
 		}
 		&.type-link {
-			border-color: darkgoldenrod;
+			border-color: #3498db;
 		}
 		&.type-list {
-			border-color: crimson;
+			border-color: #9b59b6;
+		}
+		&.type-address {
+			border-color: #f1c40f;
+		}
+	}
+}
+
+.button.fa {
+	width: 50px;
+	margin-right: 10px;
+	background: #BBB;
+	&:hover, &.active {
+		&.type-note {
+			background: #e67e22;
+		}
+		&.type-link {
+			background: #3498db;
+		}
+		&.type-file {
+			background: #e74c3c;
+		}
+		&.type-list {
+			background: #9b59b6;
+		}
+		&.type-address {
+			background: #f1c40f;
 		}
 	}
 }

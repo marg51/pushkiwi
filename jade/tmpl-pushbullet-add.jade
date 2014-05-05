@@ -1,14 +1,18 @@
 h3 Add
 
-button(ui-sref='pushbullet.add.note') Note
-button(ui-sref='pushbullet.add.link') Link
-button(ui-sref='pushbullet.add.file') File
+div
+	button.button.animate.fa.fa-2x.fa-comments.type-note(ui-sref='pushbullet.add.note',ng-class='{active:form.type=="note"}',title='Note')
+	button.button.animate.fa.fa-2x.fa-link.fa-rotate-90.type-link(ui-sref='pushbullet.add.link',ng-class='{active:form.type=="link"}',title='Link')
+	button.button.animate.fa.fa-2x.fa-list-ul.type-list(ui-sref='pushbullet.add.link',ng-class='{active:form.type=="link"}',title='List')
+	button.button.animate.fa.fa-2x.fa-copy.type-file(ui-sref='pushbullet.add.file',ng-class='{active:form.type=="file"}',title='File')
+	button.button.animate.fa.fa-2x.fa-map-marker.type-address(ui-sref='pushbullet.add.file',ng-class='{active:form.type=="file"}',title='Address')
 
-form(name='add')
-	div
-		label To
-			select(name='email',ng-model='form.email',ng-options='email for email in emails')
-	div(ui-view='')
+br
+div
+	form(name='add')
+		div
+			select(name='email',ng-model='form.email',ng-options='email for email in emails',placeholder='To (email, iden)')
+		div(ui-view='')
 
-	div
-		button(ng-click='save()',ng-disabled='send') Send !
+		div
+			button.button.success(ng-click='save()',ng-disabled='send') Send !
