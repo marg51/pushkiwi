@@ -39,4 +39,28 @@ app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope, con
 		return if not $scope.list[index]?
 		pushbulletService.query("pushes/#{$scope.list[index].iden}",'DELETE')
 		$scope.list.splice(index,1)
+
+app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state) ->
+	$scope.emails= ['margirier.laurent@gmail.com']
+	$scope.form = {}
+	$scope.save = ->
+		console.log $scope.form
+		$scope.send = true
+		pushbulletService.query('pushes','POST',$scope.form).then ->
+			$scope.send = false
+			# wait for a fix from ui-router team, ctrl are not reinstantiated
+			# $state.reload()
+			$state.go('pushbullet.list')
+
+	$scope.init = ->
+		email = $scope.form.email
+		$scope.form = {email}
+
+app.controller 'PushbulletAddItemCtrl', ($scope,$state) ->
+	$scope.init()
+	# the type is guessed, based on the url
+	$scope.form.type = $state.current.url.slice(1)
+
+
+
 			
