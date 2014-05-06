@@ -1,0 +1,27 @@
+{
+  "name": "pushkiwi",
+  "version": "0.0.1",
+  "authors": [
+    "Laurent Margirier <laurent.margirier@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular-mocks": "~1.3.0",
+    "angular": "~1.3.0",
+    "angular-ui-router": "~0.2.10",
+    "angular-webkit-ssh": "git@uto.io:angular-webkit-ssh#0.0.2",
+    "flex": "git@uto.io:flex#master",
+    "angular-sanitize": "~1.3.0",
+    "angular-animate": "~1.3.0",
+    "fontawesome": "~4.0.3"
+  },
+  "resolutions": {
+    "angular": "~1.3.0"
+  }
+}
