@@ -3,6 +3,7 @@ app = angular.module 'kiwi.pushbullet', ['ngSanitize']
 app.config ($stateProvider, $urlRouterProvider) ->
 	$stateProvider.state("pushbullet",
 		url: "/pushbullet"
+		abstract: true
 		templateUrl: "tmpl-pushbullet.html"
 		controller: "PushbulletCtrl"
 		resolve:
@@ -41,10 +42,4 @@ app.config ($stateProvider, $urlRouterProvider) ->
 		controller: "PushbulletAddItemCtrl"
 	)
 
-	$urlRouterProvider.otherwise "/login"
-
-app.config (configFactoryProvider) ->
-	pushbullet = configFactoryProvider.create('pushbullet')
-	pushbullet
-		.add('key')
-		.add('email')
+	$urlRouterProvider.otherwise "/pushbullet.list"

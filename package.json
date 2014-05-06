@@ -28,8 +28,6 @@
     "karma-nodewebkit-launcher": "0.0.8"
   },
   "dependencies": {
-    "highlight.js": "^8.0.0",
-    "ssh2": "^0.2.22",
     "lodash": "~2.4.1",
     "moment": "~2.6.0",
     "ws": "~0.4.31"

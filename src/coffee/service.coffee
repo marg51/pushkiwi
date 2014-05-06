@@ -1,27 +1,22 @@
 app = angular.module 'kiwi.pushbullet'
 
-app.factory 'pushbulletWsService', (configFactory, $state, $q, $rootScope) ->
+app.factory 'pushbulletWsService', ($state, $q, $rootScope, require) ->
 
 	ready = false
 	WebSocket = require('ws')
 	$scope = {}
 
-	$scope.checkKey = ->
-		config = configFactory.get('pushbullet')
-		if not config or not config.key or config.key.length isnt 45
-			$state.go 'login'
-			return false
-		return config.key
 
-	$scope.connect = ->
-		return if not (key = $scope.checkKey())
+	$scope.connect = (user) ->
+		return if not (user.api_key)
 
 		deferred = $q.defer()
 
 		if ready is true
 			deferred.resolve(true)
 		else
-			ws = new WebSocket("wss://websocket.pushbullet.com/subscribe/#{key}")
+			ws = new WebSocket("wss://websocket.pushbullet.com/subscribe/#{user.api_key}")
+			# $ wscat -l 1338
 			# ws = new WebSocket("ws://localhost:1338")
 			ws.on 'open', ->
 				if console? then console.log 'opened'
@@ -43,7 +38,7 @@ app.factory 'pushbulletWsService', (configFactory, $state, $q, $rootScope) ->
 	return $scope
 
 
-app.factory 'pushbulletService', (configFactory,$state, $q) ->
+app.factory 'pushbulletService', ($state, $q, require) ->
 
 	$scope = {}
 

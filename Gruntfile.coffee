@@ -115,6 +115,7 @@ module.exports = (grunt) ->
 					"bower_components/angular-sanitize/angular-sanitize.min.js"
 					"bower_components/angular-ui-router/release/angular-ui-router.min.js"
 					"bower_components/angular-webkit-ssh/dist/app.js"
+					"bower_components/angular-webkit-require/dist/app.js"
 					"bower_components/flex/dist/ng-flexbox.js"
 				]
 
@@ -151,7 +152,7 @@ module.exports = (grunt) ->
 
 		karma:
 			unit:
-				configFile: "./test/karma-unit.conf.js"
+				configFile: "./tests/karma-unit.conf.js"
 				autoWatch: false
 				singleRun: true
 

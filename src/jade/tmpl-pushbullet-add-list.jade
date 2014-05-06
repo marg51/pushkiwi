@@ -6,5 +6,5 @@ br
 	//- i.icon-input.fa(ng-class='{"fa-check-square-o":form.items[$index].checked,"fa-square-o":!form.items[$index].checked}',ng-click='form.items[$index].checked = !form.items[$index].checked')
 	//- input(ng-model='form.items[$index].text',placeholder='Item',ng-focus='onItemChange($index)')
 	
-div.animate.animate-opacity(ng-repeat='i in form.items track by $index')
+div.animate.animate-reveal(ng-repeat='i in form.items track by $index')
 	input(ng-model='form.items[$index]',placeholder='Item',ng-focus='onItemChange($index)')

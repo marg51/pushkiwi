@@ -13,7 +13,9 @@ app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService)
 		item = scope.pushbullet
 		scope.date = moment(item.created*1000).from()
 		scope.parent = scope.$parent
-		scope.isEmitted = scope.ctrl.user.email isnt scope.pushbullet.receiver_email
+
+		# the notif was sent to a friend ?
+		scope.isEmitted = scope.ctrl.user.email isnt item.receiver_email
 
 		if item.type is 'file' and item.file_type.match /^image\//
 				template = 'file-image' 
@@ -30,6 +32,7 @@ app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService)
 			element.html("<span class='color-red'>item <u>#{template}</u> unknown</span>")
 
 		if item.type is 'list'
+			# We update checkbox 
 			scope.save = ->
 				pushbulletService.query("pushes/#{item.iden}",'POST',items: item.items)
 

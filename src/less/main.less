@@ -1,5 +1,7 @@
+@import (less) '../../bower_components/flex/dist/flexbox.min.css';
 @import (reference) 'variables.less';
 @import (less) '../../.build/fa.css';
+@import (less) 'animate.less';
 
 body {
 	background: @color;
@@ -96,7 +98,7 @@ body {
 	outline: none;
 	line-height: 50px;
 
-	&.fa {
+	&.fa, & .fa {
 		font-size: 30px;
 	}
 	&.success {

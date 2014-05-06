@@ -9,8 +9,11 @@ html(ng-app="app")
 		script(src="app.js")
 		link(href="app.css",rel='stylesheet')
 	body(ng-controller='MainCtrl')
-		flexbox.main-container
+		div
+			//- img(src='https://www.pushbullet.com/img/header-logo.png')
 			em {{nodeVersion}}
-			div(ui-view="")
+
+		flexbox.main-container
+			div.flex-1(ui-view="")
 			
 		

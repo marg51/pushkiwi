@@ -1,10 +1,9 @@
 app = angular.module 'app', [
-	'app.service'
-
 	'ui.router'
 	'ngAnimate'
 	'uto.ssh'
 	'uto.flexbox'
+	'uto.require'
 	'templates-prod'
 	'kiwi.pushbullet'
 ]
@@ -15,6 +14,14 @@ app.config ($stateProvider, $urlRouterProvider) ->
 		templateUrl: "tmpl-login.html"
 		controller: "LoginCtrl"
 	)
+	.state("logout",
+		url: "/logout"
+		templateUrl: ""
+		controller: "LogoutCtrl"
+	).state("error",
+		url: "/error"
+		templateUrl: "tmpl-error.html"
+	)
 
 app.controller 'MainCtrl', ($scope,$rootScope,$state) ->
 	$scope.nodeVersion = process.version
@@ -22,7 +29,10 @@ app.controller 'MainCtrl', ($scope,$rootScope,$state) ->
 		if error? then console.log "error", error
 		$scope.errorMessage = error
 		# $scope.toState = toState
-		$state.go('login')
+		if error is "User not authenticated"
+			$state.go('login')
+		else
+			$state.go('error')
 
 app.controller 'LoginCtrl', ($scope, pushbulletService,$state) ->
 	$scope.form = {}
@@ -34,9 +44,12 @@ app.controller 'LoginCtrl', ($scope, pushbulletService,$state) ->
 			if not user.error?
 				$scope.connect = false
 				localStorage.setItem 'pushkiwi.user', data
-				$state.go 'pushbullet'
+				$state.go 'pushbullet.list'
 			else
 				console.log user
+app.controller 'LogoutCtrl', ($scope, pushbulletService,$state) ->
+	localStorage.setItem('pushkiwi.user',null)
+	$state.go 'login'
 
 app.factory 'User', ($q,pushbulletService) ->
 	$scope = {}
@@ -45,10 +58,9 @@ app.factory 'User', ($q,pushbulletService) ->
 
 		deferred = $q.defer()
 		ls = localStorage.getItem('pushkiwi.user')
-		if not ls
+		if not ls or not (data = JSON.parse(ls)).api_key
 			deferred.reject("User not authenticated")
 		else
-			data = JSON.parse(ls)
 			pushbulletService.setKey(data.api_key)
 			deferred.resolve(data)
 
