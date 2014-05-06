@@ -1,8 +1,10 @@
 h1 Login
 
 form(name='forms')
-	input(name='key',ng-model='form.key',placeholder='API_KEY')
-	div(ng-show='!forms.$valid') {{form.key.length}}/45chars.
+	input(name='key',ng-model='form.key',placeholder='API_KEY',ng-minlength='45',ng-maxlength='45',required)
+	div(ng-show='!forms.$valid') 45chars.
 
 	br 
 	button.button.success(ng-disabled='connect||!forms.$valid',ng-click='login()') Go!
+	br
+	span {{message}}

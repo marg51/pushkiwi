@@ -36,9 +36,9 @@ app.controller 'MainCtrl', ($scope,$rootScope,$state) ->
 			$state.go('error')
 
 app.controller 'LoginCtrl', ($scope, pushbulletService,$state) ->
-	$scope.form = {}
+	$scope.form = {key:''}
 	$scope.login = ->
-		console.log 'login', $scope.form
+		$scope.message = ""
 		$scope.connect = true
 		pushbulletService.setKey($scope.form.key).query('users/me').then (data) ->
 			user = JSON.parse(data)
@@ -47,7 +47,9 @@ app.controller 'LoginCtrl', ($scope, pushbulletService,$state) ->
 				localStorage.setItem 'pushkiwi.user', data
 				$state.go 'pushbullet.list'
 			else
-				console.log user
+				console.log "can not connect user", user
+				$scope.connect = false
+				$scope.message = "Try again"
 app.controller 'LogoutCtrl', ($scope, pushbulletService,$state) ->
 	localStorage.setItem('pushkiwi.user',null)
 	$state.go 'login'
