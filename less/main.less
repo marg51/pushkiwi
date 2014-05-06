@@ -42,7 +42,7 @@
 			border-color: #e67e22;
 		}
 		&.type-file {
-			border-color: #e74c3c;
+			border-color: @red;
 		}
 		&.type-link {
 			border-color: #3498db;
@@ -56,10 +56,9 @@
 	}
 }
 
-.button.fa {
+.button.fa[class*="type-"] {
 	width: 50px;
 	margin-right: 10px;
-	background: #BBB;
 	&:hover, &.active {
 		&.type-note {
 			background: #e67e22;
@@ -68,7 +67,7 @@
 			background: #3498db;
 		}
 		&.type-file {
-			background: #e74c3c;
+			background: @red;
 		}
 		&.type-list {
 			background: #9b59b6;
@@ -77,4 +76,12 @@
 			background: #f1c40f;
 		}
 	}
+}
+
+
+.icon-input {
+	position: absolute;
+	margin-left: -30px;
+	margin-top: 10px;
+	cursor: pointer;
 }

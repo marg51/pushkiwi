@@ -1,2 +1,4 @@
-h1 {{pushbullet.title}}
-div {{pushbullet.body}}
+h1 {{pushbullet.name}}
+div 
+	a(ng-href='https://www.google.com/maps/preview?q={{pushbullet.address_link}}')
+		img(ng-src='https://maps.googleapis.com/maps/api/staticmap?size=200x160&sensor=false&markers={{pushbullet.address_link}}&scale=2&key=AIzaSyD7-DbD3eHsDgFRHSZ4ABm07AzGG9ajBuA')

@@ -24,16 +24,16 @@ app.factory 'pushbulletWsService', (configFactory, $state, $q, $rootScope) ->
 			ws = new WebSocket("wss://websocket.pushbullet.com/subscribe/#{key}")
 			# ws = new WebSocket("ws://localhost:1338")
 			ws.on 'open', ->
-				console.log 'opened'
+				if console? then console.log 'opened'
 				ready = true
 				deferred.resolve(true)
 			ws.on 'close', ->
-				console.log 'closed'
+				if console? then console.log 'closed'
 				if ready is false
 					deferred.reject("Can not connect to WS server")
 				ready = false
 			ws.on 'message', (data, flags) ->
-				console.log 'message', data, flags
+				if console? then console.log 'message', data, flags
 				if data isnt '{"type": "nop"}'
 					$rootScope.$emit('pushbullet:ws:message',{data,flags})
 					$rootScope.$digest()
@@ -63,7 +63,7 @@ app.factory 'pushbulletService', (configFactory,$state, $q) ->
 		else
 			config.key
 
-	$scope.query = (what,method="GET",params={}) ->
+	$scope.query = (what,method="GET",params) ->
 		deferred = $q.defer()
 
 		params = JSON.stringify(params)
@@ -87,10 +87,32 @@ app.factory 'pushbulletService', (configFactory,$state, $q) ->
 
 			res.on 'end', ->
 				deferred.resolve(data)
+			res.on 'error', (e) ->
+				deferred.reject(e)
 
 		req.end(params)
 		req.on 'error', (e) ->
 			deferred.reject(e) 
+
+		return deferred.promise
+
+	$scope.getContacts = ->
+		deferred = $q.defer()
+		$q.all([
+			$scope.query('contacts'),
+			$scope.query('devices')
+
+		]).then((results) ->
+			list = []
+			
+			for el in JSON.parse(results[0]).contacts
+				list.push {iden:el.iden,name:el.name, email: el.email, me: false}
+			for el in JSON.parse(results[1]).devices
+				list.push {iden:el.iden,name:el.nickname, email: '', me: true}
+
+			deferred.resolve(list)
+		).catch (e) ->
+			deferred.reject(e)
 
 		return deferred.promise
 

@@ -3,16 +3,27 @@ h3 Add
 div
 	button.button.animate.fa.fa-2x.fa-comments.type-note(ui-sref='pushbullet.add.note',ng-class='{active:form.type=="note"}',title='Note')
 	button.button.animate.fa.fa-2x.fa-link.fa-rotate-90.type-link(ui-sref='pushbullet.add.link',ng-class='{active:form.type=="link"}',title='Link')
-	button.button.animate.fa.fa-2x.fa-list-ul.type-list(ui-sref='pushbullet.add.link',ng-class='{active:form.type=="link"}',title='List')
+	button.button.animate.fa.fa-2x.fa-list-ul.type-list(ui-sref='pushbullet.add.list',ng-class='{active:form.type=="list"}',title='List')
 	button.button.animate.fa.fa-2x.fa-copy.type-file(ui-sref='pushbullet.add.file',ng-class='{active:form.type=="file"}',title='File')
-	button.button.animate.fa.fa-2x.fa-map-marker.type-address(ui-sref='pushbullet.add.file',ng-class='{active:form.type=="file"}',title='Address')
+	button.button.animate.fa.fa-2x.fa-map-marker.type-address(ui-sref='pushbullet.add.address',ng-class='{active:form.type=="address"}',title='Address')
 
 br
 div
 	form(name='add')
-		div
-			select(name='email',ng-model='form.email',ng-options='email for email in emails',placeholder='To (email, iden)')
-		div(ui-view='')
+		flexbox
+			div(flex='1')
+				div.button.animate.animate-opacity(ng-repeat='contact in contacts',ng-click='contacts[$index].checked = !contacts[$index].checked',ng-class='{success:contacts[$index].checked}',style='margin:1px 0') {{contact.name}}
+			
+			div(flex='3')
+				div(ui-view='')
+				div
+					button.button.success.animate(ng-click='save()',ng-disabled='send') 
+						span(ng-hide='send') Send !
+						span(ng-show='send') 
+							i.fa.fa-spinner.fa-spin
+							{{sent+1}}/{{nb_dest}}
+			flexbox(flex='1',column,center)
 
-		div
-			button.button.success(ng-click='save()',ng-disabled='send') Send !
+
+
+		

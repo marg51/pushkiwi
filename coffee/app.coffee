@@ -29,6 +29,14 @@ app.config ($stateProvider, $urlRouterProvider) ->
 		url: "/file"
 		templateUrl: "tmpl-pushbullet-add-file.html"
 		controller: "PushbulletAddItemCtrl"
+	).state("pushbullet.add.address",
+		url: "/address"
+		templateUrl: "tmpl-pushbullet-add-address.html"
+		controller: "PushbulletAddItemCtrl"
+	).state("pushbullet.add.list",
+		url: "/list"
+		templateUrl: "tmpl-pushbullet-add-list.html"
+		controller: "PushbulletAddItemCtrl"
 	)
 
 app.config (configFactoryProvider) ->

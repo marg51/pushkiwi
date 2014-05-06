@@ -9,5 +9,5 @@ flexbox.pushbullet(flex="1",center)
 		br
 		{{date}}
 		br
-		button(ng-click='ctrl.delete(parent.$index)') X {{parent.$index}}
+		button.button.error.fa.fa-times(ng-click='ctrl.delete(parent.$index)')
 	div.body(flex='3',ng-class='{"isEmitted":isEmitted}',class='type-{{pushbullet.type}}')

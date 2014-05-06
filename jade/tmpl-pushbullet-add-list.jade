@@ -1,0 +1,10 @@
+input(name='title',ng-model='form.title',placeholder='Title')
+br
+br
+//- !! PB does not support checked element at the creation yet
+//- div(ng-repeat='i in form.items')
+	//- i.icon-input.fa(ng-class='{"fa-check-square-o":form.items[$index].checked,"fa-square-o":!form.items[$index].checked}',ng-click='form.items[$index].checked = !form.items[$index].checked')
+	//- input(ng-model='form.items[$index].text',placeholder='Item',ng-focus='onItemChange($index)')
+	
+div.animate.animate-opacity(ng-repeat='i in form.items track by $index')
+	input(ng-model='form.items[$index]',placeholder='Item',ng-focus='onItemChange($index)')

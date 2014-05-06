@@ -1,7 +1,4 @@
 h1 {{pushbullet.title}}
-div
-	ul
-		li(ng-repeat='item in pushbullet.items')
-			label 
-				input(type='checkbox',ng-model='item.checked',ng-change='save()')
-				| {{item.text}}
+div(ng-repeat='item in pushbullet.items')
+	i.fa(ng-class='{"fa-check-square-o":item.checked,"fa-square-o":!item.checked}',ng-click='item.checked = !item.checked; save()')
+	| {{item.text}}

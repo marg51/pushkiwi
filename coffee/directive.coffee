@@ -32,3 +32,7 @@ app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService)
 		if item.type is 'list'
 			scope.save = ->
 				pushbulletService.query("pushes/#{item.iden}",'POST',items: item.items)
+
+		if item.type is 'address'
+			scope.pushbullet.address_link = encodeURI(scope.pushbullet.address)
+
