@@ -42,4 +42,4 @@ app.config ($stateProvider, $urlRouterProvider) ->
 		controller: "PushbulletAddItemCtrl"
 	)
 
-	$urlRouterProvider.otherwise "/pushbullet.list"
+	$urlRouterProvider.otherwise "/pushbullet/list"

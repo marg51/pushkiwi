@@ -1,3 +1,5 @@
+# EXPORTED FROM PROJECT KIWI, should be rewritten
+
 app = angular.module 'app', [
 	'ui.router'
 	'ngAnimate'
