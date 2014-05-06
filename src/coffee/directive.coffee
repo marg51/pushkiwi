@@ -13,7 +13,7 @@ app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService)
 		item = scope.pushbullet
 		scope.date = moment(item.created*1000).from()
 		scope.parent = scope.$parent
-		scope.isEmitted = scope.ctrl.config.email isnt scope.pushbullet.receiver_email
+		scope.isEmitted = scope.ctrl.user.email isnt scope.pushbullet.receiver_email
 
 		if item.type is 'file' and item.file_type.match /^image\//
 				template = 'file-image' 

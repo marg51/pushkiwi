@@ -1,4 +1,12 @@
-@import (reference) '../../../less/variables.less';
+@import (reference) 'variables.less';
+@import (less) '../../.build/fa.css';
+
+body {
+	background: @color;
+	color: @background_color;
+	margin: 0;
+	text-align: center;
+}
 
 [pushbullet] {
 	margin-bottom: 5px;
@@ -77,11 +85,48 @@
 		}
 	}
 }
-
-
-.icon-input {
-	position: absolute;
-	margin-left: -30px;
-	margin-top: 10px;
+.button {
+	background: #BBB;
+	border-width: 0;
+	height: 50px;
+	color: aliceblue;
+	border-radius: 5px;
+	min-width: 50px;
 	cursor: pointer;
+	outline: none;
+	line-height: 50px;
+
+	&.fa {
+		font-size: 30px;
+	}
+	&.success {
+		background: @green;
+	}
+	&.error {
+		background: @red;
+	}
+	&.disabled, &[disabled] {
+		background: #BBB;
+		cursor: initial;
+	}
 }
+
+input, textarea, select {
+	min-width: 200px;
+	border-radius: 5px;
+	border: 2px solid #BBB;
+	padding: 5px 10px;
+	outline: none;
+}
+
+fieldset {
+	border: 1px dotted #AAA; 
+}
+
+
+// .icon-input {
+// 	position: absolute;
+// 	margin-left: -30px;
+// 	margin-top: 10px;
+// 	cursor: pointer;
+// }

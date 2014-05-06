@@ -1,0 +1,8 @@
+h1 Login
+
+form(name='forms')
+	input(name='key',ng-model='form.key',placeholder='API_KEY')
+	div(ng-show='!forms.$valid') {{form.key.length}}/45chars.
+
+	br 
+	button.button.success(ng-disabled='connect||!forms.$valid',ng-click='login()') Go!

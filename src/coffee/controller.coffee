@@ -14,14 +14,18 @@ app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,$
 				catch e
 					console.log e
 		
-app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope, configFactory) ->
+app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope, user) ->
+	# List of notifs
 	$scope.list = []
-	$scope.config = configFactory.get('pushbullet')
 	# give the scope to the directives
 	$scope.ctrl = $scope 
+	$scope.user = user
+
+	# last fetched time
 	$scope.timestamp = 0
 	$scope.actualize = ->
 		pushbulletService.query("pushes").then (data) ->
+			console.log data
 			data = JSON.parse(data)
 			i = data.pushes.length - 1
 			while i >= 0
@@ -52,27 +56,15 @@ app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q) ->
 		$scope.send = true
 		to = $scope.contacts.filter (e)=>e.checked
 
-		# send to each dest
-		# $q.all(
-		# 	to.map (e) ->
-		# 		$scope.form.iden = e.iden
-		# 		pushbulletService.query('pushes','POST',$scope.form)
-		# ).then ->
-		# 	$scope.send = false
-		# 	# wait for a fix from ui-router team, ctrl are not reinstantiated
-		# 	# $state.reload()
-		# 	$state.go('pushbullet.list')	
-
 		$scope.nb_dest = to.length
 		$scope.sent = 0
 
 		to.map (e) ->
-			# others people
-			if e.me is false
-				$scope.form.email = e.email
-			# me
-			else 
+			# My own device ?
+			if e.me is true
 				$scope.form.device_iden = e.iden
+			else
+				$scope.form.email = e.email 
 
 			console.log $scope.form
 			pushbulletService.query('pushes','POST',$scope.form).then -> 
@@ -80,8 +72,6 @@ app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q) ->
 				if $scope.sent is $scope.nb_dest
 					$scope.send = false
 					$state.go('pushbullet.list')
-
-
 
 	$scope.init = ->
 		$scope.form = {}

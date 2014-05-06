@@ -9,7 +9,7 @@ app.factory 'pushbulletWsService', (configFactory, $state, $q, $rootScope) ->
 	$scope.checkKey = ->
 		config = configFactory.get('pushbullet')
 		if not config or not config.key or config.key.length isnt 45
-			$state.go 'config'
+			$state.go 'login'
 			return false
 		return config.key
 
@@ -57,11 +57,13 @@ app.factory 'pushbulletService', (configFactory,$state, $q) ->
 
 
 	$scope.getKey = ->
-		config = configFactory.get('pushbullet')
-		if not config or not config.key or config.key.length isnt 45
-			$state.go 'config'
-		else
-			config.key
+		# User.getUser().api_key
+		$scope._key
+
+
+	$scope.setKey = (key) ->
+		$scope._key = key
+		$scope
 
 	$scope.query = (what,method="GET",params) ->
 		deferred = $q.defer()

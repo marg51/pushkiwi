@@ -6,8 +6,10 @@ app.config ($stateProvider, $urlRouterProvider) ->
 		templateUrl: "tmpl-pushbullet.html"
 		controller: "PushbulletCtrl"
 		resolve:
-			ws: (pushbulletWsService) ->
-				pushbulletWsService.connect()
+			user: (User) ->
+				User.getUser()
+			# ws: (pushbulletWsService) ->
+			# 	pushbulletWsService.connect()
 	).state("pushbullet.list",
 		url: "/list"
 		templateUrl: "tmpl-pushbullet-list.html"
@@ -38,6 +40,8 @@ app.config ($stateProvider, $urlRouterProvider) ->
 		templateUrl: "tmpl-pushbullet-add-list.html"
 		controller: "PushbulletAddItemCtrl"
 	)
+
+	$urlRouterProvider.otherwise "/login"
 
 app.config (configFactoryProvider) ->
 	pushbullet = configFactoryProvider.create('pushbullet')
