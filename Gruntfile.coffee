@@ -114,7 +114,6 @@ module.exports = (grunt) ->
 					"bower_components/angular-animate/angular-animate.min.js"
 					"bower_components/angular-sanitize/angular-sanitize.min.js"
 					"bower_components/angular-ui-router/release/angular-ui-router.min.js"
-					"bower_components/angular-webkit-ssh/dist/app.js"
 					"bower_components/angular-webkit-require/dist/app.js"
 					"bower_components/flex/dist/ng-flexbox.js"
 				]

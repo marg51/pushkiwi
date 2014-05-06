@@ -1,15 +1,14 @@
 app = angular.module 'kiwi.pushbullet'
 
-moment = require('moment')
-
 # http://docs.uto.io/fr.multi-templates-directive.html
 
-app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService) ->
+app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService, require) ->
 	templateUrl: 'dir-pushbullet.html'
 	scope:
 		pushbullet:'='
 		ctrl:'='
 	link: (scope, elm, attrs) ->
+		moment = require('moment')
 		item = scope.pushbullet
 		scope.date = moment(item.created*1000).from()
 		scope.parent = scope.$parent

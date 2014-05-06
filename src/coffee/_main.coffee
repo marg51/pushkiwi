@@ -1,7 +1,6 @@
 app = angular.module 'app', [
 	'ui.router'
 	'ngAnimate'
-	'uto.ssh'
 	'uto.flexbox'
 	'uto.require'
 	'templates-prod'

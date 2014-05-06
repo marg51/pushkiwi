@@ -8,7 +8,7 @@ app.factory 'pushbulletWsService', ($state, $q, $rootScope, require) ->
 
 
 	$scope.connect = (user) ->
-		return if not (user.api_key)
+		return if not user.api_key
 
 		deferred = $q.defer()
 
@@ -42,6 +42,7 @@ app.factory 'pushbulletService', ($state, $q, require) ->
 
 	$scope = {}
 
+	# @todo We should use angular's $http instead
 	https = require('https')
 	Buffer = require('buffer')
 	options=
