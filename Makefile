@@ -1,5 +1,5 @@
 install:
-	npm install
+	npm install --production
 	bower install
 	mkdir -p .nw 
 	curl http://dl.node-webkit.org/v0.8.6/node-webkit-v0.8.6-osx-ia32.zip > .nw/nw.zip
