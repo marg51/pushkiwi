@@ -25,6 +25,11 @@ module.exports = (grunt) ->
 				options:
 					stdout: true
 					async: true
+			nwlocal:
+				command: '.nw/node-webkit.app/Contents/MacOS/node-webkit .'
+				options:
+					stdout: true
+					async: true
 			buildnw:
 				command: "zip -r builds/<%= pkg.name %>.nw node_modules/ public/ package.json"
 				options:

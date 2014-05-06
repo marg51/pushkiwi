@@ -31,9 +31,27 @@ It uses [node-webkit](https://github.com/rogerwang/node-webkit) and [AngularJS](
 
 ## It's WIP
 
-It was just a try at first, inside another node-webkit/angularJS project. That's why it needs **a lot of refactorization**, and **unit tests**
+It was just a try at first, inside another node-webkit/angularJS project. That's why it needs **a lot of refactorization**, and **unit tests**.
 
-## roadmap
+So far, I have tested only with Mac OS X, it propably don't work on Windows or Linux, but it should be easily fixed.
+
+## Install
+
+#### Easy setup (Mac OS X)
+
+```bash
+git clone https://github.com/marg51/pushkiwi.git
+cd pushkiwi
+make
+make start
+```
+**read _Makefile_ for more infos**
+
+If everything is ok, the app should ask an API_KEY, is the one you can find in [your profile](https://www.pushbullet.com/account)
+
+_It uses node-webkit v0.8.6 (NodeJS 0.10.22) because v0.9.2 (NodeJS 0.11.9) may be incompatible with some NodeJS modules, but I didn't see any problem with push-kiwi so far_
+
+## Roadmap
 
 
 #### Soon 
