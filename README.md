@@ -74,4 +74,4 @@ _It uses node-webkit v0.8.6 (NodeJS 0.10.22) because v0.9.2 (NodeJS 0.11.9) may 
 #### Later
 
 - build a better (more robust) pushbullet API client, and outsource it
-- Allow to update a file/note/email... right from the desktop via right click ( not a clue how to do that, but MacVim do it, should be fun )
+- Allow to update a file/note/email... from anywhere on the desktop via right click ( not a clue how to do that, but MacVim do it, should be fun )
