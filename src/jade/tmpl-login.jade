@@ -5,6 +5,10 @@ form(name='forms')
 	div(ng-show='!forms.$valid') 45chars.
 
 	br 
-	button.button.success(ng-disabled='connect||!forms.$valid',ng-click='login()') Go!
+	button.button.success(ng-disabled='connect||!forms.$valid',ng-click='login()') 
+		span(ng-show='!connect') Go!
+		span(ng-show='connect') 
+			i.fa.fa-spinner.fa-spin
+			| login
 	br
 	span {{message}}
