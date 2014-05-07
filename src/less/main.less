@@ -8,6 +8,42 @@ body {
 	color: @background_color;
 	margin: 0;
 	text-align: center;
+
+	header {
+		background: darken(@color,5%);
+		border-bottom: 1px solid darken(@color,10%);
+		height: 50px; 
+		line-height: 50px;
+		white-space: nowrap;
+		button {
+			display: inline-block;
+			border-width: 0;
+			height: 50px;
+			cursor: pointer;
+			outline: none;
+			line-height: 50px;
+			background: transparent;
+			border-bottom: 2px solid transparent;
+			font-size: 18px;
+			&:hover, &.active {
+				border-bottom-color: darken(@color,30%);
+			}
+		}
+	}
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0,0,0,0.8);
 }
 
 [pushbullet] {
