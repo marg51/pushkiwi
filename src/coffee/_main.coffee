@@ -29,7 +29,7 @@ app.controller 'MainCtrl', ($scope,$rootScope,$state) ->
 	$scope.nodeVersion = process.version
 	$rootScope.$on '$stateChangeError', (event, toState, toParams, fromState, fromParams, error) ->
 		if error? then console.log "error", error
-		$scope.errorMessage = error
+		$scope.errorMessage = if error.message then error.stack else error
 		# $scope.toState = toState
 		if error is "User not authenticated"
 			$state.go('login')
