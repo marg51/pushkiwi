@@ -82,13 +82,18 @@ app.service 'MyPushes', (pushbulletService, $rootScope) ->
 		else
 			data = JSON.parse(ls)
 			$scope._lastUpdatedAt = data.lastUpdatedAt
-			$scope._data = data.pushes
+			$scope._data = []
 			$scope._dataIndexed = {}
 
-			for push in $scope._data
+			for el in data.pushes
+				# don't keep AngularJS infos
+				push = _.omit(el,'$$hashKey')
+				$scope._data.push(push)
 				$scope._dataIndexed[push.iden] = push
 
 	$scope._index = ->		
+
+	# @todo should not allow concurrent _actualize 
 	$scope._actualize = ->
 		pushbulletService.query('pushes?modified_after='+$scope._lastUpdatedAt).then (result) ->
 			for push in result.pushes
