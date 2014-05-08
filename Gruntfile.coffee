@@ -122,6 +122,7 @@ module.exports = (grunt) ->
 					"bower_components/angular-webkit-require/dist/app.js"
 					"bower_components/flex/dist/ng-flexbox.js"
 					"bower_components/angular-loading-bar/build/loading-bar.min.js"
+					"bower_components/lodash/dist/lodash.min.js"
 				]
 
 		uglify:

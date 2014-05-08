@@ -28,7 +28,6 @@
     "karma-nodewebkit-launcher": "0.0.8"
   },
   "dependencies": {
-    "lodash": "~2.4.1",
     "moment": "~2.6.0",
     "ws": "~0.4.31"
   }
