@@ -98,11 +98,12 @@ app.service 'MyPushes', (pushbulletService) ->
 			$scope._save()
 
 
-
 	$scope.filter = (filters={}) ->
 		$scope._data
 	$scope.get = $scope.filter
 
+	$scope.delete = (push) ->
+		pushbulletService.query("pushes/#{push.iden}",'DELETE').then (result) ->
 		
 	$scope._updateOne = (push) ->
 		if push.active is false and $scope._dataIndexed[push.iden]?

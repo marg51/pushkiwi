@@ -9,6 +9,6 @@ flexbox.pushbullet(flex="1",center)
 		br
 		{{date}}
 		br
-		button.button.animate.error(ng-click='ctrl.delete(parent.$index)',ng-disabled='pushbullet.deleting')
+		button.button.animate.error(ng-click='delete(parent.$index); pushbullet.deleting = true',ng-disabled='pushbullet.deleting')
 			i.fa(ng-class='{"fa-times":!pushbullet.deleting,"fa-spinner fa-spin":pushbullet.deleting}')
 	div.body(flex='3',ng-class='{"isEmitted":isEmitted}',class='type-{{pushbullet.type}}')

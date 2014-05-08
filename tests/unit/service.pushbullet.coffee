@@ -121,11 +121,12 @@ describe 'pushkiwi - Services -', ->
 	describe 'MyPushes - ', ->
 		beforeEach inject (MyPushes) ->
 			service = MyPushes
-			service._lastUpdatedAt = 0
-			$httpBackend.expectGET(API_ENDPOINT+'pushes?modified_after=0').respond(mock['pushes'])
-
 
 		describe '_actualize', ->
+			beforeEach ->
+				service._lastUpdatedAt = 0
+				$httpBackend.expectGET(API_ENDPOINT+'pushes?modified_after=0').respond(mock['pushes'])
+
 			it 'should query pushes?modified_after', ->
 				service._actualize()
 
@@ -155,6 +156,24 @@ describe 'pushkiwi - Services -', ->
 				$httpBackend.flush()
 
 				expect(service._save).toHaveBeenCalled()
+
+		describe 'delete() - ', ->
+			beforeEach ->
+				service._load()
+			it 'should query /pushes/IDEN with method DELETE', ->
+				$httpBackend.expectDELETE(API_ENDPOINT+'pushes/'+mock['pushes'].pushes[0].iden).respond({})
+				service.delete(mock['pushes'].pushes[0])
+
+				$httpBackend.flush()
+
+			# actually, this is already managed by the socket which trigger a new _actualize()
+			xit 'should remove it', ->
+				$httpBackend.expectDELETE(API_ENDPOINT+'pushes/'+mock['pushes'].pushes[0].iden).respond({})
+				service.delete(mock['pushes'].pushes[0])
+
+				$httpBackend.flush()
+
+				expect(service._data.length).toBe 0
 
 		describe '_updateOne', ->
 			it 'should update pushes', ->
