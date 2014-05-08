@@ -63,7 +63,12 @@ app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope) ->
 
 app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q) ->
 	$scope.form = {}
-	$scope._save = ->
+	_preSave = angular.noop
+	$scope.preSave = (fn) ->
+		_preSave = fn
+	$scope.save = ->
+		_preSave()
+
 		to = $scope.contacts.filter (e)=>e.checked
 
 		return if to.length is 0
@@ -88,7 +93,7 @@ app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q) ->
 
 	$scope.init = ->
 		$scope.form = {}
-		$scope.save = $scope._save
+		$scope.preSave(angular.noop)
 
 
 app.controller 'PushbulletAddItemCtrl', ($scope,$state) ->
@@ -108,12 +113,11 @@ app.controller 'PushbulletAddItemCtrl', ($scope,$state) ->
 			if index is $scope.form.items.length - 1
 				$scope.addItem()
 
-		$scope.$parent.save = ->
+		$scope.preSave ->
+			console.log 'preSave'
 			for el,key in $scope.form.items
 				if el is ''
 					$scope.form.items.splice(key,1)
-
-			$scope.$parent._save()
 
 		# default: 2 rows
 		$scope.addItem()
