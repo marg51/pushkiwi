@@ -2,19 +2,7 @@ app = angular.module 'kiwi.pushbullet'
 
 
 
-# Mac OS X notifications, based on the websocket service from pushbullet which is ... not verbous
 app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,$rootScope, user, $http) ->
-# 	http = require('http')
-# 	$rootScope.$on 'pushbullet:ws:message', (e,obj) ->
-# 		data = JSON.parse(obj.data)
-# 		if data.type is "tickle" and data.subtype is "push"
-# 			pushbulletService.query("pushes").then (data) ->
-# 				data = JSON.parse(data).pushes
-# 				try
-# 					# it will fail, even in the try catch, if `node-osx-notifier 1>/dev/null 2>&1 &` isnt started
-# 					http.get("http://localhost:1337/info?message=#{data[0].title}")
-# 				catch e
-# 					console.log e
 
 	# array of notifs
 	$scope.list = []
@@ -50,7 +38,7 @@ app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,$
 
 	# Socket say something
 	$rootScope.$on 'pushbullet:ws:message', (e,obj) ->
-		data = JSON.parse(obj.data)
+		data = obj.data
 		if data.type is "tickle" and data.subtype is "push"
 			$scope.actualize()
 

@@ -36,16 +36,17 @@ app.controller 'MainCtrl', ($scope,$rootScope,$state) ->
 		else
 			$state.go('error')
 
-app.controller 'LoginCtrl', ($scope, pushbulletService,$state) ->
+app.controller 'LoginCtrl', ($scope, pushbulletService,$state,User) ->
 	$scope.form = {key:''}
 	$scope.login = ->
 		$scope.message = ""
 		$scope.connect = true
-		pushbulletService.setKey($scope.form.key).query('users/me').then (data) ->
-			user = JSON.parse(data)
+		User.API_KEY = $scope.form.key
+		pushbulletService.query('users/me').then (data) ->
+			user = data
 			if not user.error?
 				$scope.connect = false
-				localStorage.setItem 'pushkiwi.user', data
+				localStorage.setItem 'pushkiwi.user', JSON.stringify user
 				$state.go 'pushbullet.list'
 			else
 				console.log "can not connect user", user
