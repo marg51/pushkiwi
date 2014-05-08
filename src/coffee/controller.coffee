@@ -2,45 +2,43 @@ app = angular.module 'kiwi.pushbullet'
 
 
 
-app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,$rootScope, user, $http) ->
+app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,MyPushes,$rootScope,user) ->
 
 	# array of notifs
-	$scope.list = []
+	$scope.list = MyPushes.get()
 	# Allow directives to access this scope easily
 	$scope.ctrl = $scope 
 	$scope.user = user
 
-	# last fetched time
-	$scope.timestamp = 0
 
-	# @todo should be in the service and persisted there
-	$scope.actualize = ->
-		$scope.loading = true
-		beforeUpdate = $scope.list.length
-		pushbulletService.query("pushes").then (data) ->
-			$scope.loading = false
-			data = data
-			i  = data.pushes.length - 1
-			while i >= 0
-				el = data.pushes[i]
-				if el.created > $scope.timestamp and el.active is true
-					$scope.list.unshift(el)
-				i--
+	# # @todo should be in the service and persisted there
+	# $scope.actualize = ->
+	# 	$scope.loading = true
+	# 	beforeUpdate = $scope.list.length
+	# 	pushbulletService.query("pushes").then (data) ->
+	# 		$scope.loading = false
+	# 		data = data
+	# 		i  = data.pushes.length - 1
+	# 		while i >= 0
+	# 			el = data.pushes[i]
+	# 			if el.created > $scope.timestamp and el.active is true
+	# 				$scope.list.unshift(el)
+	# 			i--
 
-			# Be sure to not enter if it's the first load
-			if $scope.timestamp > 0 and beforeUpdate < $scope.list.length
-				# @todo should be limited for when we don't have focus
-				$http.get("http://localhost:1337/info?message=#{$scope.list[0].title}")
+	# 		# Be sure to not enter if it's the first load
+	# 		if $scope.timestamp > 0 and beforeUpdate < $scope.list.length
+	# 			# @todo should be limited for when we don't have focus
+	# 			$http.get("http://localhost:1337/info?message=#{$scope.list[0].title}")
 
-			$scope.timestamp = data.timestamp
+	# 		$scope.timestamp = data.timestamp
 
-	$scope.actualize()
+	MyPushes._actualize()
 
 	# Socket say something
 	$rootScope.$on 'pushbullet:ws:message', (e,obj) ->
 		data = obj.data
 		if data.type is "tickle" and data.subtype is "push"
-			$scope.actualize()
+			MyPushes._actualize()
 
 	# retrieve friends and own devices
 	pushbulletService.getContacts().then (list) ->
@@ -69,7 +67,9 @@ app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q) ->
 		to = $scope.contacts.filter (e)=>e.checked
 
 		# No dest ?
-		return if to.length is 0
+		if to.length is 0
+			# $animate.addClass(...)
+			return 
 
 		$scope.send = true
 		$scope.nb_dest = to.length

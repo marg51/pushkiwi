@@ -1,5 +1,5 @@
 describe 'pushkiwi - Services -', ->
-	$scope = service = $httpBackend = undefined
+	$scope = service = mock = $httpBackend = undefined
 
 	API_ENDPOINT = 'https://api.pushbullet.com/v2/'
 
@@ -8,8 +8,11 @@ describe 'pushkiwi - Services -', ->
 	
 	beforeEach module 'app'
 
-	beforeEach inject (_$httpBackend_) ->
+	beforeEach module 'pushbullet.mock'
+
+	beforeEach inject (_$httpBackend_,ApiMock) ->
 		$httpBackend = _$httpBackend_
+		mock = ApiMock
 
 	describe 'pushbulletService - ', ->
 		beforeEach inject (pushbulletService) ->
@@ -115,6 +118,50 @@ describe 'pushkiwi - Services -', ->
 				expect(called).toBe true
 				
 
+	describe 'MyPushes - ', ->
+		beforeEach inject (MyPushes) ->
+			service = MyPushes
+			service._lastUpdatedAt = 0
+			$httpBackend.expectGET(API_ENDPOINT+'pushes?modified_after=0').respond(mock['pushes'])
+
+
+		describe '_actualize', ->
+			it 'should query pushes?modified_after', ->
+				service._actualize()
+
+				$httpBackend.flush()
+
+			it 'should call _updateOne', ->
+				spyOn(service,'_updateOne')
+
+				service._actualize()
+
+				$httpBackend.flush()
+
+				expect(service._updateOne).toHaveBeenCalledWith(mock['pushes'].pushes[0])
+
+			it 'should update _lastUpdatedAt', ->
+				service._actualize()
+
+				$httpBackend.flush()
+
+				expect(service._lastUpdatedAt).toBe(mock['pushes'].timestamp)
+
+			it 'should call _save', ->
+				spyOn(service,'_save')
+
+				service._actualize()
+
+				$httpBackend.flush()
+
+				expect(service._save).toHaveBeenCalled()
+
+		describe '_updateOne', ->
+			it 'should update pushes', ->
+			it 'should remove elements', ->
+			it 'should add elements', ->
+
+			
 
 
 				

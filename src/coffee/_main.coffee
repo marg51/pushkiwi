@@ -54,6 +54,7 @@ app.controller 'LoginCtrl', ($scope, pushbulletService,$state,User) ->
 				$scope.message = "Try again"
 app.controller 'LogoutCtrl', ($scope, pushbulletService,$state) ->
 	localStorage.setItem('pushkiwi.user',null)
+	localStorage.setItem('pushkiwi.pushes',null)
 	$state.go 'login'
 
 app.factory 'User', ($q) ->

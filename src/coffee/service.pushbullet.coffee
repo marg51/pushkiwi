@@ -60,5 +60,60 @@ app.provider 'pushbulletService', ->
 		return $scope
 
 	return provider
-			
+
+app.service 'MyPushes', (pushbulletService) ->
+	$scope = {}
+
+	_ = _ || global._
+
+	$scope._save = ->
+		data = 
+			pushes: $scope._data
+			lastUpdatedAt: $scope._lastUpdatedAt
+
+		localStorage.setItem('kiwi.pushes', JSON.stringify(data))
+
+	$scope._load = ->
+		ls = localStorage.getItem('kiwi.pushes')
+		if not ls
+			$scope._lastUpdatedAt = 0
+			$scope._data = []
+			$scope._dataIndexed = {}
+		else
+			data = JSON.parse(ls)
+			$scope._lastUpdatedAt = data.lastUpdatedAt
+			$scope._data = data.pushes
+			$scope._dataIndexed = {}
+
+			for push in $scope._data
+				$scope._dataIndexed[push.iden] = push
+
+	$scope._index = ->		
+	$scope._actualize = ->
+		pushbulletService.query('pushes?modified_after='+$scope._lastUpdatedAt).then (result) ->
+			for push in result.pushes
+				$scope._updateOne(push)
+
+			$scope._lastUpdatedAt = result.timestamp
+			$scope._save()
+
+
+
+	$scope.filter = (filters={}) ->
+		$scope._data
+	$scope.get = $scope.filter
+
+		
+	$scope._updateOne = (push) ->
+		if push.active is false and $scope._dataIndexed[push.iden]?
+			index = $scope._data.indexOf($scope._dataIndexed[push.iden])
+			$scope._data.splice(index,1)
+		if push.active is true and not $scope._dataIndexed[push.iden]?
+			$scope._data.unshift(push)
+			$scope._dataIndexed[push.iden] = push
+		_.merge($scope._dataIndexed[push.iden],push)
+
+	$scope._load()
+
+	return $scope
 
