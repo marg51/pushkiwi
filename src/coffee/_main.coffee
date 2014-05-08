@@ -7,6 +7,7 @@ app = angular.module 'app', [
 	'uto.require'
 	'templates-prod'
 	'kiwi.pushbullet'
+	'chieffancypants.loadingBar'
 ]
 
 app.config ($stateProvider, $urlRouterProvider) ->
