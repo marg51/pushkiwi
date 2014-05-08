@@ -11,26 +11,8 @@ app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,M
 	$scope.user = user
 
 
-	# # @todo should be in the service and persisted there
-	# $scope.actualize = ->
-	# 	$scope.loading = true
-	# 	beforeUpdate = $scope.list.length
-	# 	pushbulletService.query("pushes").then (data) ->
-	# 		$scope.loading = false
-	# 		data = data
-	# 		i  = data.pushes.length - 1
-	# 		while i >= 0
-	# 			el = data.pushes[i]
-	# 			if el.created > $scope.timestamp and el.active is true
-	# 				$scope.list.unshift(el)
-	# 			i--
-
-	# 		# Be sure to not enter if it's the first load
-	# 		if $scope.timestamp > 0 and beforeUpdate < $scope.list.length
-	# 			# @todo should be limited for when we don't have focus
-	# 			$http.get("http://localhost:1337/info?message=#{$scope.list[0].title}")
-
-	# 		$scope.timestamp = data.timestamp
+	$rootScope.$on 'pushbullet:new', (e,push) ->
+		$http.get("http://localhost:1337/info?message=#{push.title}")
 
 	MyPushes._actualize()
 
@@ -45,11 +27,6 @@ app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,M
 		$scope.contacts = list
 		
 app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope) ->
-	$scope.delete = (index) ->
-		return if not $scope.list[index]?
-		$scope.list[index].deleting = true
-		pushbulletService.query("pushes/#{$scope.list[index].iden}",'DELETE').then ->
-			$scope.list.splice(index,1)
 
 app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q) ->
 	$scope.form = {}
