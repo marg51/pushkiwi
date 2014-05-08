@@ -61,7 +61,7 @@ app.provider 'pushbulletService', ->
 
 	return provider
 
-app.service 'MyPushes', (pushbulletService) ->
+app.service 'MyPushes', (pushbulletService, $rootScope) ->
 	$scope = {}
 
 	_ = _ || global._
@@ -112,6 +112,8 @@ app.service 'MyPushes', (pushbulletService) ->
 		if push.active is true and not $scope._dataIndexed[push.iden]?
 			$scope._data.unshift(push)
 			$scope._dataIndexed[push.iden] = push
+			if $scope._lastUpdatedAt isnt 0
+				$rootScope.$emit('pushbullet:new',push)
 		_.merge($scope._dataIndexed[push.iden],push)
 
 	$scope._load()
