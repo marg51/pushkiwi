@@ -8,9 +8,10 @@ app.factory 'pushbulletWsService', ($state, $q, $rootScope, require) ->
 
 
 	$scope.connect = (user) ->
-		return if not user.api_key
-
 		deferred = $q.defer()
+
+		if not user? or not user.api_key
+			deferred.reject('Where is my API_KEY ?')
 
 		if ready is true
 			deferred.resolve(true)

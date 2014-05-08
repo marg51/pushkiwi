@@ -9,8 +9,8 @@ app.config ($stateProvider, $urlRouterProvider) ->
 		resolve:
 			user: (User) ->
 				User.getUser()
-			# ws: (pushbulletWsService) ->
-			# 	pushbulletWsService.connect()
+			ws: (user, pushbulletWsService) ->
+				pushbulletWsService.connect(user)
 	).state("pushbullet.list",
 		url: "/list"
 		templateUrl: "tmpl-pushbullet-list.html"

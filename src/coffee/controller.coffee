@@ -3,7 +3,7 @@ app = angular.module 'kiwi.pushbullet'
 
 
 # Mac OS X notifications, based on the websocket service from pushbullet which is ... not verbous
-app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,$rootScope) ->
+app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,$rootScope, user, $http) ->
 # 	http = require('http')
 # 	$rootScope.$on 'pushbullet:ws:message', (e,obj) ->
 # 		data = JSON.parse(obj.data)
@@ -15,9 +15,8 @@ app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,$
 # 					http.get("http://localhost:1337/info?message=#{data[0].title}")
 # 				catch e
 # 					console.log e
-		
-app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope, user) ->
-	# List of notifs
+
+	# array of notifs
 	$scope.list = []
 	# Allow directives to access this scope easily
 	$scope.ctrl = $scope 
@@ -27,16 +26,24 @@ app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope, use
 	$scope.timestamp = 0
 	$scope.actualize = ->
 		$scope.loading = true
+		beforeUpdate = $scope.list.length
 		pushbulletService.query("pushes").then (data) ->
 			$scope.loading = false
 			data = JSON.parse(data)
-			i = data.pushes.length - 1
+			i  = data.pushes.length - 1
 			while i >= 0
 				el = data.pushes[i]
 				if el.created > $scope.timestamp and el.active is true
 					$scope.list.unshift(el)
 				i--
+
+			# Be sure to not enter if it's the first load
+			if $scope.timestamp > 0 and beforeUpdate < $scope.list.length
+				# @todo should be limited for when we don't have focus
+				$http.get("http://localhost:1337/info?message=#{$scope.list[0].title}")
+
 			$scope.timestamp = data.timestamp
+
 	$scope.actualize()
 
 	$rootScope.$on 'pushbullet:ws:message', (e,obj) ->
@@ -44,6 +51,10 @@ app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope, use
 		if data.type is "tickle" and data.subtype is "push"
 			$scope.actualize()
 
+	pushbulletService.getContacts().then (list) ->
+		$scope.contacts = list
+		
+app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope) ->
 	$scope.delete = (index) ->
 		return if not $scope.list[index]?
 		$scope.list[index].deleting = true
@@ -51,9 +62,6 @@ app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope, use
 			$scope.list.splice(index,1)
 
 app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q) ->
-	pushbulletService.getContacts().then (list) ->
-		$scope.contacts = list
-
 	$scope.form = {}
 	$scope._save = ->
 		to = $scope.contacts.filter (e)=>e.checked
