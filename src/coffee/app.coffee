@@ -10,6 +10,8 @@ app.config ($stateProvider, $urlRouterProvider) ->
 			user: (User) ->
 				User.getUser()
 			ws: (user, pushbulletWsService) ->
+				# this fn return true, we don't wait for the socket to be connected
+				# therefore, it does not block if the WS server is down
 				pushbulletWsService.connect(user)
 	).state("pushbullet.list",
 		url: "/list"
