@@ -2,7 +2,7 @@ app = angular.module 'kiwi.pushbullet'
 
 # http://docs.uto.io/fr.multi-templates-directive.html
 
-app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService, require) ->
+app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService, require, MyPushes) ->
 	templateUrl: 'dir-pushbullet.html'
 	scope:
 		pushbullet:'='
@@ -29,6 +29,10 @@ app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService,
 			$compile(element.contents())(scope)
 		).error ->
 			element.html("<span class='color-red'>item <u>#{template}</u> unknown</span>")
+
+
+		scope.delete = ->
+			MyPushes.delete(scope.pushbullet)
 
 		if item.type is 'list'
 			# We update checkbox 
