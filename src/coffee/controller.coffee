@@ -24,6 +24,8 @@ app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,$
 
 	# last fetched time
 	$scope.timestamp = 0
+
+	# @todo should be in the service and persisted there
 	$scope.actualize = ->
 		$scope.loading = true
 		beforeUpdate = $scope.list.length
@@ -46,11 +48,13 @@ app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,$
 
 	$scope.actualize()
 
+	# Socket say something
 	$rootScope.$on 'pushbullet:ws:message', (e,obj) ->
 		data = JSON.parse(obj.data)
 		if data.type is "tickle" and data.subtype is "push"
 			$scope.actualize()
 
+	# retrieve friends and own devices
 	pushbulletService.getContacts().then (list) ->
 		$scope.contacts = list
 		
@@ -64,33 +68,43 @@ app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope) ->
 app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q) ->
 	$scope.form = {}
 	_preSave = angular.noop
+
+	# call the `fn` function at the beginning of $scope.save()
+	# `fn` is set to angular.noop by $scope.init()
 	$scope.preSave = (fn) ->
 		_preSave = fn
+
 	$scope.save = ->
 		_preSave()
 
+		# Every dest checked
 		to = $scope.contacts.filter (e)=>e.checked
 
+		# No dest ?
 		return if to.length is 0
 
 		$scope.send = true
 		$scope.nb_dest = to.length
+		# number of pushes sent
 		$scope.sent = 0
 
+		# for every dest
 		to.map (e) ->
 			# My own device ?
 			if e.me is true
 				$scope.form.device_iden = e.iden
+			# a friend
 			else
 				$scope.form.email = e.email 
 
-			console.log $scope.form
 			pushbulletService.query('pushes','POST',$scope.form).then -> 
 				$scope.sent++
+				# if every push is done. @todo use Q.all([])
 				if $scope.sent is $scope.nb_dest
 					$scope.send = false
 					$state.go('pushbullet.list')
 
+	# called by PushbulletAddItemCtrl, => when we select another type of push
 	$scope.init = ->
 		$scope.form = {}
 		$scope.preSave(angular.noop)
