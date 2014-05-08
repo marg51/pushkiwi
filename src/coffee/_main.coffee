@@ -55,7 +55,7 @@ app.controller 'LogoutCtrl', ($scope, pushbulletService,$state) ->
 	localStorage.setItem('pushkiwi.user',null)
 	$state.go 'login'
 
-app.factory 'User', ($q,pushbulletService) ->
+app.factory 'User', ($q) ->
 	$scope = {}
 
 	$scope.getUser = ->
@@ -65,7 +65,7 @@ app.factory 'User', ($q,pushbulletService) ->
 		if not ls or not (data = JSON.parse(ls)).api_key
 			deferred.reject("User not authenticated")
 		else
-			pushbulletService.setKey(data.api_key)
+			$scope.API_KEY = data.api_key
 			deferred.resolve(data)
 
 		return deferred.promise

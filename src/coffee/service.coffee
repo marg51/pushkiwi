@@ -39,59 +39,35 @@ app.factory 'pushbulletWsService', ($state, $q, $rootScope, require) ->
 	return $scope
 
 
-app.factory 'pushbulletService', ($state, $q, require) ->
+app.factory 'pushbulletService', ($state, $q, require, $http, Base64, User) ->
 
 	$scope = {}
 
 	# @todo We should use angular's $http instead
-	https = require('https')
-	Buffer = require('buffer')
-	options=
-		hostname: 'api.pushbullet.com'
-		path: '/v2/'
-		method: 'GET'
-		port: 443
+	# https = require('https')
+	# Buffer = require('buffer')
+	API_ENDPOINT= 'https://api.pushbullet.com/v2/'
 
-
-	$scope.getKey = ->
+	$scope.getAuth = ->
 		# User.getUser().api_key
-		$scope._key
+		"Basic "+Base64.encode(User.API_KEY+':')
+
+	$http.defaults.headers.common["Authorization"] = $scope.getAuth()
+	$http.defaults.headers.post['Content-Type'] = "application/json"
 
 
-	$scope.setKey = (key) ->
-		$scope._key = key
-		$scope
-
-	$scope.query = (what,method="GET",params) ->
+	$scope.query = (path,method="GET",params) ->
 		deferred = $q.defer()
 
-		params = JSON.stringify(params)
+		data = JSON.stringify(params)
 
-		_options = angular.copy options
-		_options.path+=what
-		_options.auth = $scope.getKey()+':'
+		url=API_ENDPOINT+path
 
-		if method is 'POST'
-			_options.headers =
-				"Content-Type": "application/json"
-				# "Content-Length": Buffer.byteLength(params)
-				"Content-Length": params.length
-
-		_options.method = method
-
-		req = https.request _options, (res) ->
-			data = ''
-			res.on 'data', (chunck) ->
-				data+=chunck.toString()
-
-			res.on 'end', ->
-				deferred.resolve(data)
-			res.on 'error', (e) ->
-				deferred.reject(e)
-
-		req.end(params)
-		req.on 'error', (e) ->
-			deferred.reject(e) 
+		promise = $http({method,url,data})
+		promise.success (data) ->
+			deferred.resolve(data)
+		promise.error () ->
+			deferred.reject('ERROR',url,method,params,arguments)
 
 		return deferred.promise
 
@@ -104,9 +80,9 @@ app.factory 'pushbulletService', ($state, $q, require) ->
 		]).then((results) ->
 			list = []
 			
-			for el in JSON.parse(results[0]).contacts
+			for el in results[0].contacts
 				list.push {iden:el.iden,name:el.name, email: el.email, me: false}
-			for el in JSON.parse(results[1]).devices
+			for el in results[1].devices
 				list.push {iden:el.iden,name:el.nickname, email: '', me: true}
 
 			deferred.resolve(list)

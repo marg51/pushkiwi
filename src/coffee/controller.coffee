@@ -31,7 +31,7 @@ app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,$
 		beforeUpdate = $scope.list.length
 		pushbulletService.query("pushes").then (data) ->
 			$scope.loading = false
-			data = JSON.parse(data)
+			data = data
 			i  = data.pushes.length - 1
 			while i >= 0
 				el = data.pushes[i]
