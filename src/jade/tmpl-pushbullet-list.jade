@@ -1,8 +1,4 @@
 h3 List
 flexbox(column)
-	div(ng-show='loading')
-		button.button
-			i.fa.fa-spinner.fa-spin
-			| Loading
-	div.animate.animate-reveal(ng-repeat='row in list | orderBy:row.created')
+	div.animate.animate-reveal(ng-repeat='row in list')
 		div(pushbullet="row",ctrl='$parent.ctrl',center)
