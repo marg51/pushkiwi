@@ -9,19 +9,6 @@ html(ng-app="app")
 		script(src="app.js")
 		link(href="app.css",rel='stylesheet')
 	body(ng-controller='MainCtrl')
-		header
-			flexbox
-				div(flex='1')
-					img(src='https://www.pushbullet.com/img/header-logo.png')
-					b &nbsp; Unofficial
-				flexbox(flex='2')
-					button.animate(flex='1',ui-sref='pushbullet.list',ui-sref-active="active") Inbox
-					//- ui-sref-active only work for one state. There is ui-sref-active-eq in the ui-router#master
-					//- but it wouldn't work unless ui-sref becomes `pushbullet.add`
-					button.animate(flex='1',ui-sref='pushbullet.add.note',ui-sref-active="active") New
-					button.animate(flex='1',ui-sref='logout',ui-sref-active="active") Logout
-
-		flexbox.main-container.position-relative
-			div.flex-1(ui-view="")
+		div.position-absolute.animate.animate-opacity(ui-view='')
 			
 		

@@ -1,14 +1,16 @@
-h1 Login
+flexbox.main-container(center)
+	div.login-container
+		h1 Login
 
-form(name='forms')
-	input(name='key',ng-model='form.key',placeholder='API_KEY',ng-minlength='45',ng-maxlength='45',required)
-	div(ng-show='!forms.$valid') 45chars.
+		form(name='forms')
+			input(name='key',ng-model='form.key',placeholder='API_KEY',ng-minlength='45',ng-maxlength='45',required)
+			div(ng-show='!forms.$valid') 45chars.
 
-	br 
-	button.button.success(ng-disabled='connect||!forms.$valid',ng-click='login()') 
-		span(ng-show='!connect') Go!
-		span(ng-show='connect') 
-			i.fa.fa-spinner.fa-spin
-			| login
-	br
-	span {{message}}
+			br 
+			button.button.success(ng-disabled='connect||!forms.$valid',ng-click='login()') 
+				span(ng-show='!connect') Go!
+				span(ng-show='connect') 
+					i.fa.fa-spinner.fa-spin
+					| login
+			br
+			span {{message}}
