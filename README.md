@@ -1,6 +1,6 @@
 # Push Kiwi
 
-![](http://i.uto.io/TQyMT)
+![](http://i.uto.io/jk2ND)
 
 
 ## [Pushbullet](https://www.pushbullet.com) desktop application
@@ -20,7 +20,7 @@ _This is mainly a work in progress_
 
 - send pushes to your contacts (notes, links, addresses, checklists)
 - you only can send files URL, not upload them yet
-- send pushes to many contacts at once
+- send pushes to several contacts at once
 
 
 ## How does it work ?
@@ -31,7 +31,7 @@ It uses [node-webkit](https://github.com/rogerwang/node-webkit) and [AngularJS](
 
 ## It's WIP
 
-It was just a try at first, inside another node-webkit/angularJS project. That's why it needs **a lot of refactorization**, and **unit tests**.
+It was just a try at first, inside another node-webkit/angularJS project. That's why it needs **a lot of refactor**, and **unit tests**.
 
 So far, I have tested only with Mac OS X, it propably don't work on Windows or Linux, but it should be easily fixed.
 
@@ -47,7 +47,7 @@ make start
 ```
 **read _Makefile_ for more infos**
 
-If everything is ok, the app should ask an API_KEY, is the one you can find in [your profile](https://www.pushbullet.com/account)
+If everything is ok, the app should ask an API_KEY, this is the one you can find in [your profile](https://www.pushbullet.com/account)
 
 _It uses node-webkit v0.8.6 (NodeJS 0.10.22) because v0.9.2 (NodeJS 0.11.9) may be incompatible with some NodeJS modules, but I didn't see any problem with push-kiwi so far_
 
@@ -57,21 +57,21 @@ _It uses node-webkit v0.8.6 (NodeJS 0.10.22) because v0.9.2 (NodeJS 0.11.9) may 
 #### Soon 
 
 - **refactor**
- - use Angular's $http instead of NodeJS'
- - merge _main.coffee into others files
- - We can be notified from pushbullet when there is an update (new push is an update, deleting a push leads to an update, etc.), but it does not tell anything else. We need to find a way to discover what happened. (diff ?)
- 	- as soon as we know what is updated, uses natives notifications systems
+ - [x] use Angular's $http instead of NodeJS'
+ - [ ] merge _main.coffee into others files
+ - [x] We can be notified from pushbullet when there is an update (new push is an update, deleting a push leads to an update, etc.), but it does not tell anything else. We need to find a way to discover what happened. (diff ?)
+ 	- [x] as soon as we know what is updated, uses natives notifications systems (Mac OS X: ok)
 - **Unit tests**
- - TDR (test driven refactoring) sounds really cool
+ - [ ] TDR (test driven refactoring) sounds really cool
 - **improve load time**
- - pushbullet isn't really fast so far, we need to cache as many requests as we can, including `GET /contacts` and `GET /pushes`
+ - [x] pushbullet isn't really fast so far, we need to cache as many requests as we can, including `GET /contacts` and `GET /pushes`
 - **update files**
- - would be nice to choose where (which server) to upload the files
+ - [ ] would be nice to choose where (which server) to upload the files
 - **Design**
- - something clean
+ - [ ] something clean
 
 
 #### Later
 
-- build a better (more robust) pushbullet API client, and outsource it
-- Allow to update a file/note/email... from anywhere on the desktop via right click ( not a clue how to do that, but MacVim do it, should be fun )
+- [ ] build a better (more robust) pushbullet API client, and outsource it
+- [ ] Allow to update a file/note/email... from anywhere on the desktop via right click ( not a clue how to do that, but MacVim do it, should be fun )
