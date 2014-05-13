@@ -2,7 +2,7 @@ app = angular.module 'kiwi.pushbullet'
 
 
 
-app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,MyPushes,$rootScope,user) ->
+app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,MyPushes,$rootScope,user, $http) ->
 
 	# array of notifs
 	$scope.list = MyPushes.get()
