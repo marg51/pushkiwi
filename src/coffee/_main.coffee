@@ -4,7 +4,6 @@ app = angular.module 'app', [
 	'ui.router'
 	'ngAnimate'
 	'uto.flexbox'
-	'uto.require'
 	'templates-prod'
 	'kiwi.pushbullet'
 	'chieffancypants.loadingBar'

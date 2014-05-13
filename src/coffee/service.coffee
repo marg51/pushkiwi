@@ -1,6 +1,6 @@
 app = angular.module 'kiwi.pushbullet'
 
-app.factory 'pushbulletWsService', ($state, $q, $rootScope, require, $timeout, User) ->
+app.factory 'pushbulletWsService', ($state, $q, $rootScope, $timeout, User) ->
 
 	ready = false
 	WebSocket = require('ws')
