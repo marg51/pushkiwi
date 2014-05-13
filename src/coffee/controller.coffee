@@ -28,9 +28,13 @@ app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,M
 		
 app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope) ->
 
-app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q) ->
+app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q, $animate) ->
 	$scope.form = {}
 	_preSave = angular.noop
+
+	# <div> which has list of contacts, animated when no contact selected
+	# I'm not sure where the best place is. In a new directive ?
+	$dom_contacts = undefined
 
 	# call the `fn` function at the beginning of $scope.save()
 	# `fn` is set to angular.noop by $scope.init()
@@ -40,12 +44,16 @@ app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q) ->
 	$scope.save = ->
 		_preSave()
 
+		if not $dom_contacts
+			$dom_contacts = angular.element(document.querySelector('#contacts'))
+
 		# Every dest checked
 		to = $scope.contacts.filter (e)=>e.checked
 
 		# No dest ?
 		if to.length is 0
-			# $animate.addClass(...)
+			 $animate.addClass $dom_contacts,'flash', ->
+			 	$dom_contacts.removeClass 'flash'
 			return 
 
 		$scope.send = true
