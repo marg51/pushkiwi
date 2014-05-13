@@ -71,7 +71,7 @@ node-osx-notifier 1337
  - [x] use Angular's $http instead of NodeJS'
  - [ ] merge _main.coffee into others files
  - [x] We can be notified from pushbullet when there is an update (new push is an update, deleting a push leads to an update, etc.), but it does not tell anything else. We need to find a way to discover what happened. (diff ?)
- 	- [x] as soon as we know what is updated, uses natives notifications systems (Mac OS X: ok)
+ 	- as soon as we know what is updated, uses natives notifications systems (Mac OS X: ok)
 - **Unit tests**
  - [ ] TDR (test driven refactoring) sounds really cool
 - **form validation**
@@ -87,4 +87,4 @@ node-osx-notifier 1337
 #### Later
 
 - [ ] build a better (more robust) pushbullet API client, and outsource it
-- [ ] Allow to update a file/note/email... from anywhere on the desktop via right click ( not a clue how to do that, but MacVim do it, should be fun )
+- [ ] Allow to upload a file/note/email/... from anywhere on the desktop via right click ( not a clue how to do that, but MacVim do it, should be fun )
