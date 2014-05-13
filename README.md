@@ -63,9 +63,11 @@ _It uses node-webkit v0.8.6 (NodeJS 0.10.22) because v0.9.2 (NodeJS 0.11.9) may 
  	- [x] as soon as we know what is updated, uses natives notifications systems (Mac OS X: ok)
 - **Unit tests**
  - [ ] TDR (test driven refactoring) sounds really cool
+- **form validation**
+ - [ ] So far, there is no validation at all
 - **improve load time**
  - [x] pushbullet isn't really fast so far, we need to cache as many requests as we can, including `GET /contacts` and `GET /pushes`
-- **update files**
+- **upload files**
  - [ ] would be nice to choose where (which server) to upload the files
 - **Design**
  - [ ] something clean
