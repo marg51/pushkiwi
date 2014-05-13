@@ -27,6 +27,8 @@ _This is mainly a work in progress_
 
 It uses the undocumented and not finished pushbullet API V2.
 
+[SEE MY NOTES](https://github.com/marg51/pushkiwi/wiki/pushbullet-API-v2:-notes) about API V2
+
 It uses [node-webkit](https://github.com/rogerwang/node-webkit) and [AngularJS](angularjs.org)
 
 ## It's WIP
