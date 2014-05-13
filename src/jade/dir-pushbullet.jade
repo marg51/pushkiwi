@@ -7,7 +7,7 @@ flexbox.pushbullet(flex="1",center)
 			b from 
 			| {{pushbullet.sender_email}}
 		br
-		{{date}}
+		span(title='{{date}}') {{date_relative}}
 		br
 		button.button.animate.error(ng-click='delete(parent.$index); pushbullet.deleting = true',ng-disabled='pushbullet.deleting')
 			i.fa(ng-class='{"fa-times":!pushbullet.deleting,"fa-spinner fa-spin":pushbullet.deleting}')

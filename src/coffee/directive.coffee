@@ -8,9 +8,10 @@ app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService,
 		pushbullet:'='
 		ctrl:'='
 	link: (scope, elm, attrs) ->
-		moment = require('moment')
 		item = scope.pushbullet
-		scope.date = moment(item.created*1000).from()
+		moment = require('moment')(item.created*1000)
+		scope.date_relative = moment.from()
+		scope.date = moment.format("dddd, MMMM Do YYYY, h:mm:ss a")
 		scope.parent = scope.$parent
 
 		# the notif was sent to a friend ?
