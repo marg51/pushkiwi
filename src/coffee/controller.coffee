@@ -52,8 +52,8 @@ app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q, $animat
 
 		# No dest ?
 		if to.length is 0
-			 $animate.addClass $dom_contacts,'flash', ->
-			 	$dom_contacts.removeClass 'flash'
+			$animate.addClass $dom_contacts,'flash', ->
+				$dom_contacts.removeClass 'flash'
 			return 
 
 		$scope.send = true
