@@ -51,6 +51,17 @@ If everything is ok, the app should ask an API_KEY, this is the one you can find
 
 _It uses node-webkit v0.8.6 (NodeJS 0.10.22) because v0.9.2 (NodeJS 0.11.9) may be incompatible with some NodeJS modules, but I didn't see any problem with push-kiwi so far_
 
+#### OS X notifier
+
+You have to install [node-osx-notifier](https://github.com/azoff/node-osx-notifier) so that you can have notifications.
+
+```
+[sudo] npm install -g node-osx-notifier
+# We call it from the port 1337
+# If you want to change it, you'll have to change the port in `coffee/controller.coffee`
+node-osx-notifier 1337
+```
+
 ## Roadmap
 
 
