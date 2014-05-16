@@ -1,5 +1,25 @@
 app = angular.module 'kiwi.pushbullet'
 
+
+app.factory 'User', ($q) ->
+	$scope = {}
+
+	$scope.getUser = ->
+
+		deferred = $q.defer()
+		ls = localStorage.getItem('pushkiwi.user')
+		if not ls or not (data = JSON.parse(ls)).api_key
+			deferred.reject("User not authenticated")
+		else
+			$scope.API_KEY = data.api_key
+			deferred.resolve(data)
+
+		return deferred.promise
+
+
+	return $scope
+
+
 app.factory 'pushbulletWsService', ($state, $q, $rootScope, $timeout, User) ->
 
 	ready = false

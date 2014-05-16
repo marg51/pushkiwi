@@ -1,7 +1,28 @@
-app = angular.module 'kiwi.pushbullet', ['ngSanitize']
+app = angular.module 'kiwi.pushbullet', [
+	'ui.router'
+	'ngAnimate'
+	'uto.flexbox'
+	'templates-prod'
+	'ngSanitize'
+	'chieffancypants.loadingBar'
+]
 
 app.config ($stateProvider, $urlRouterProvider) ->
-	$stateProvider.state("pushbullet",
+
+	$stateProvider.state("login",
+		url: "/login"
+		templateUrl: "tmpl-login.html"
+		controller: "LoginCtrl"
+	).state("logout",
+		url: "/logout"
+		templateUrl: ""
+		controller: "LogoutCtrl"
+	).state("error",
+		url: "/error"
+		templateUrl: "tmpl-error.html"
+	)
+
+	.state("pushbullet",
 		url: "/pushbullet"
 		abstract: true
 		templateUrl: "tmpl-pushbullet.html"

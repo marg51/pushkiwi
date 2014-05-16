@@ -6,7 +6,7 @@ describe 'pushkiwi - Services -', ->
 	# we don't want the template for now
 	angular.module('templates-prod',[])
 	
-	beforeEach module 'app'
+	beforeEach module 'kiwi.pushbullet'
 
 	beforeEach module 'pushbullet.mock'
 

@@ -1,5 +1,43 @@
 app = angular.module 'kiwi.pushbullet'
 
+# default controller, called inside the main view, index.html
+app.controller 'MainCtrl', ($scope,$rootScope,$state) ->
+	$scope.nodeVersion = process.version
+	$rootScope.$on '$stateChangeError', (event, toState, toParams, fromState, fromParams, error) ->
+		if error? then console.log "error", error
+		$scope.errorMessage = if error.message then error.stack else error
+		# $scope.toState = toState
+		if error is "User not authenticated"
+			$state.go('login')
+		else
+			$state.go('error')
+
+# Ask the user his API_KEY
+app.controller 'LoginCtrl', ($scope, pushbulletService,$state,User) ->
+	$scope.form = {key:''}
+	$scope.login = ->
+		$scope.message = ""
+		$scope.connect = true
+		User.API_KEY = $scope.form.key
+		# if we can query with success, the API KEY is valid
+		pushbulletService.query('users/me').then (data) ->
+			user = data
+			if not user.error?
+				$scope.connect = false
+				localStorage.setItem 'pushkiwi.user', JSON.stringify user
+				$state.go 'pushbullet.list'
+			else
+				console.log "can not connect user", user
+				$scope.connect = false
+				$scope.message = "Try again"
+
+# We remove data from localStorage
+app.controller 'LogoutCtrl', ($scope, pushbulletService,$state) ->
+	# pushkiwi.user is the result of /users/me, including API_KEY
+	localStorage.setItem('pushkiwi.user',null)
+	# pushkiwi.pushes is the result of /pushes
+	localStorage.setItem('pushkiwi.pushes',null)
+	$state.go 'login'
 
 
 app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,MyPushes,$rootScope,user, $http) ->
