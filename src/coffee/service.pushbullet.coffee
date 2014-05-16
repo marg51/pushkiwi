@@ -81,7 +81,8 @@ app.service 'MyPushes', (pushbulletService, $rootScope) ->
 			$scope._dataIndexed = {}
 		else
 			data = JSON.parse(ls)
-			$scope._lastUpdatedAt = data.lastUpdatedAt
+
+			$scope._lastUpdatedAt = data.lastUpdatedAt || 0
 			$scope._data = []
 			$scope._dataIndexed = {}
 
@@ -91,6 +92,10 @@ app.service 'MyPushes', (pushbulletService, $rootScope) ->
 				$scope._data.push(push)
 				$scope._dataIndexed[push.iden] = push
 
+				# timestamp is not sent anymore, we keep the oldest timestamp
+				if el.modified > $scope._lastUpdatedAt
+					$scope._lastUpdatedAt = el.modified
+
 	$scope._index = ->		
 
 	# @todo should not allow concurrent _actualize 
@@ -99,7 +104,11 @@ app.service 'MyPushes', (pushbulletService, $rootScope) ->
 			for push in result.pushes
 				$scope._updateOne(push)
 
-			$scope._lastUpdatedAt = result.timestamp
+			for el in result.pushes
+				# timestamp is not sent anymore, we keep the oldest timestamp
+				if el.modified > $scope._lastUpdatedAt
+					$scope._lastUpdatedAt = el.modified
+
 			$scope._save()
 
 

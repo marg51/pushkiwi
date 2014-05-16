@@ -146,7 +146,7 @@ describe 'pushkiwi - Services -', ->
 
 				$httpBackend.flush()
 
-				expect(service._lastUpdatedAt).toBe(mock['pushes'].timestamp)
+				expect(service._lastUpdatedAt).toBe(mock['pushes'].pushes[0].modified)
 
 			it 'should call _save', ->
 				spyOn(service,'_save')
