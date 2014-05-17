@@ -7,4 +7,6 @@ br
 	//- input(ng-model='form.items[$index].text',placeholder='Item',ng-focus='onItemChange($index)')
 	
 div.animate.animate-reveal(ng-repeat='i in form.items track by $index')
-	input(ng-model='form.items[$index]',placeholder='Item',ng-focus='onItemChange($index)')
+	input(name='items_{{$index}}',ng-model='form.items[$index]',placeholder='Item',ng-focus='onItemChange($index)',ng-class='')
+	div(ng-messages='add.items_{{$index}}.$error',ng-messages-include='error-messages.html')
+

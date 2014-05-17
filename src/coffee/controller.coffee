@@ -40,6 +40,7 @@ app.controller 'LogoutCtrl', ($scope, pushbulletService,$state) ->
 	$state.go 'login'
 
 
+# called once we are connected
 app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,MyPushes,$rootScope,user, $http) ->
 
 	# array of notifs

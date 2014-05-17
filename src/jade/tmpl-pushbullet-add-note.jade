@@ -1,3 +1,4 @@
 input(name='title',ng-model='form.title',placeholder='Title')
 br
-textarea(name='body',ng-model='form.body',placeholder='Content')
+div.animate.animate-opacity(ng-messages='add.body.$error',ng-messages-include='error-messages.html')
+textarea.animate(name='body',ng-model='form.body',placeholder='Content',required)

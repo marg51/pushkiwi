@@ -10,6 +10,8 @@ module.exports = function(config) {
       "bower_components/flex/dist/ng-flexbox.js",
       "bower_components/angular-loading-bar/build/loading-bar.min.js",
       "bower_components/lodash/dist/lodash.min.js",
+      "bower_components/angular-messages/angular-messages.min.js",
+
 
       
       'src/coffee/*.coffee',

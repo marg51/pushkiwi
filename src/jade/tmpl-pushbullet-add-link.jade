@@ -1,3 +1,4 @@
 input(name='title',ng-model='form.title',placeholder='Title')
 br
-textarea(name='url',ng-model='form.url',placeholder='Link (ex: http://youtube.com)')
+div.animate.animate-opacity(ng-messages='add.url.$error',ng-messages-include='error-messages.html')
+textarea.animate(name='url',ng-model='form.url',placeholder='Link (ex: http://youtube.com)',xlink,required)

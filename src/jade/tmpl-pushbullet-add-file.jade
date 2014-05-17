@@ -1,5 +1,7 @@
 input(name='file_name',ng-model='form.file_name',placeholder='Title')
 br
-input(name='file_type',ng-model='form.file_type',placeholder='Type (ex: image/jpeg)')
+div.animate.animate-opacity(ng-messages='add.file_type.$error',ng-messages-include='error-messages.html')
+input.animate(name='file_type',ng-model='form.file_type',placeholder='Type (ex: image/jpeg)',required, xtype)
 br
-textarea(name='file_url',ng-model='form.file_url',placeholder='Link of file (ex: http://example/music.mp3)')
+div.animate.animate-opacity(ng-messages='add.file_url.$error',ng-messages-include='error-messages.html')
+textarea.animate(name='file_url',ng-model='form.file_url',placeholder='Link of file (ex: http://example/music.mp3)', xlink, required)

@@ -1,3 +1,4 @@
 input(name='name',ng-model='form.name',placeholder='Name')
 br
-textarea(name='address',ng-model='form.address',placeholder='Address (street, city, country)')
+div.animate.animate-opacity(ng-messages='add.address.$error',ng-messages-include='error-messages.html')
+textarea.animate(name='address',ng-model='form.address',placeholder='Address (street, city, country)',required)
