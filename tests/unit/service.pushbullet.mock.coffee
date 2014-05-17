@@ -5,7 +5,7 @@ app.factory 'ApiMock', ->
 		"cursor": null,
 		"pushes": [
 			{	
-				"isEmitted": true, # OWN property
+				"_isEmitted": true, # OWN property
 				"notification_id": null,
 				"iden": "Any_IDEN",
 				"package_name": null,
@@ -45,7 +45,7 @@ app.factory 'ApiMock', ->
 				"source_device_iden": null
 			}
 			{
-				"isEmitted": false, # OWN property
+				"_isEmitted": false, # OWN property
 				"notification_id": null,
 				"iden": "Any_IDEN",
 				"package_name": null,

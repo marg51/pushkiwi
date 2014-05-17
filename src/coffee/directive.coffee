@@ -15,7 +15,7 @@ app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService,
 		scope.parent = scope.$parent
 
 		# the notif was sent to a friend ?
-		scope.isEmitted = scope.ctrl.user.email isnt item.receiver_email
+		scope.pushbullet._isEmitted = scope.ctrl.user.email isnt item.receiver_email
 
 		if item.type is 'file' and item.file_type.match /^image\//
 				template = 'file-image' 

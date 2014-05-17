@@ -1,9 +1,9 @@
 flexbox.pushbullet(flex="1",center)
 	div.type(flex='1') 
-		span(ng-if='isEmitted') 
+		span(ng-if='pushbullet._isEmitted') 
 			b to 
 			| {{pushbullet.receiver_email}}
-		span(ng-if='!isEmitted') 
+		span(ng-if='!pushbullet._isEmitted') 
 			b from 
 			| {{pushbullet.sender_email}}
 		br
@@ -11,4 +11,4 @@ flexbox.pushbullet(flex="1",center)
 		br
 		button.button.animate.error(ng-click='delete(parent.$index); pushbullet.deleting = true',ng-disabled='pushbullet.deleting')
 			i.fa(ng-class='{"fa-times":!pushbullet.deleting,"fa-spinner fa-spin":pushbullet.deleting}')
-	div.body(flex='3',ng-class='{"isEmitted":isEmitted}',class='type-{{pushbullet.type}}')
+	div.body(flex='3',ng-class='{"isEmitted":pushbullet._isEmitted}',class='type-{{pushbullet.type}}')
