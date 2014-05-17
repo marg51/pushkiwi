@@ -1,6 +1,7 @@
 app = angular.module 'kiwi.pushbullet', [
 	'ui.router'
 	'ngAnimate'
+	'ngMessages'
 	'uto.flexbox'
 	'templates-prod'
 	'ngSanitize'
