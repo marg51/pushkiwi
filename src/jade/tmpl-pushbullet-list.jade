@@ -3,25 +3,18 @@ h3 List
 form(name='params')
 	flexbox
 		div(flex='1')
-			label Sent
-				input(type='checkbox', ng-model='form.dir.sent')
-			label Received
-				input(type='checkbox', ng-model='form.dir.received')
+			button.button.animate.fa.fa-2x.fa-cloud-upload.type-note(ng-click='form.dir.sent = !form.dir.sent',ng-class='{active:form.dir.sent}',title='Sent')
+			button.button.animate.fa.fa-2x.fa-cloud-download.type-note(ng-click='form.dir.received = !form.dir.received',ng-class='{active:form.dir.received}',title='Received')
 				
 		div(flex='1')
 			button.button.animate.animate-reveal(ng-repeat='contact in form.contacts',ng-click='form.contacts[$index].checked = !form.contacts[$index].checked',ng-class='{success:form.contacts[$index].checked}',style='margin:0 1px') {{contact.name}}
 		div(flex='1')
-			label Notes
-				input(type='checkbox', ng-model='form.type.note')
-			label Links
-				input(type='checkbox', ng-model='form.type.link')
-			label Lists
-				input(type='checkbox', ng-model='form.type.list')
-			label Files
-				input(type='checkbox', ng-model='form.type.file')
-			label Addresses
-				input(type='checkbox', ng-model='form.type.address')
+			button.button.animate.fa.fa-2x.fa-comments.type-note(ng-click='form.type.note = !form.type.note',ng-class='{active:form.type.note}',title='Note')
+			button.button.animate.fa.fa-2x.fa-link.fa-rotate-90.type-link(ng-click='form.type.link = !form.type.link',ng-class='{active:form.type.link}',title='Link')
+			button.button.animate.fa.fa-2x.fa-list-ul.type-list(ng-click='form.type.list = !form.type.list',ng-class='{active:form.type.list}',title='List')
+			button.button.animate.fa.fa-2x.fa-copy.type-file(ng-click='form.type.file = !form.type.file',ng-class='{active:form.type.file}',title='File')
+			button.button.animate.fa.fa-2x.fa-map-marker.type-address(ng-click='form.type.address = !form.type.address',ng-class='{active:form.type.address}',title='Address')
 
 flexbox(column)
-	div.animate.animate-reveal(ng-repeat='row in list | sent:form.dir | contacts:form | type:form ')
+	div.animate.animate-opacity(ng-repeat='row in list | sent:form.dir | contacts:form | type:form ')
 		div(pushbullet="row",ctrl='$parent.ctrl',center)
