@@ -25,9 +25,13 @@ describe 'pushkiwi - filters -', ->
 		it 'should return sent pushes', ->
 			search.received = false
 			expect(filter(mock.pushes,search).length).toBe(mock.pushes.length-1)
+			expect(filter(mock.pushes,search)[0]).toBe(mock.pushes[0])
+
 		it 'should return received pushes', ->
 			search.sent = false
 			expect(filter(mock.pushes,search).length).toBe(mock.pushes.length-1)
+			expect(filter(mock.pushes,search)[0]).toBe(mock.pushes[1])
+
 		it 'should return nothing', ->
 			search.sent = false
 			search.received = false
@@ -59,10 +63,12 @@ describe 'pushkiwi - filters -', ->
 		it 'should not return my own devices push if not selected', ->
 			search.contacts[0].checked = false
 			expect(filter(mock.pushes,search).length).toBe(1)
+			expect(filter(mock.pushes,search)[0]).toBe(mock.pushes[1])
 		
 		it 'should not return my contacts pushes if not selected', ->
 			search.contacts[1].checked = false
 			expect(filter(mock.pushes,search).length).toBe(1)
+			expect(filter(mock.pushes,search)[0]).toBe(mock.pushes[0])
 
 	describe 'type - ', ->
 		search = undefined
@@ -84,24 +90,30 @@ describe 'pushkiwi - filters -', ->
 		it 'should not return note pushes', ->
 			# #0 is a note
 			search.type.note = false
-			expect(filter(mock.pushes,search).length).toBe(mock.pushes.length-1)
+			expect(filter(mock.pushes,search).length).toBe(1)
+			expect(filter(mock.pushes,search)[0]).toBe(mock.pushes[1])
 		
 		it 'should not return link pushes', ->
 			mock.pushes[0].type = "link"
 			search.type.link = false
-			expect(filter(mock.pushes,search).length).toBe(mock.pushes.length-1)
+			expect(filter(mock.pushes,search).length).toBe(1)
+			expect(filter(mock.pushes,search)[0]).toBe(mock.pushes[1])
+
 		
 		it 'should not return list pushes', ->
 			mock.pushes[0].type = "list"
 			search.type.list = false
-			expect(filter(mock.pushes,search).length).toBe(mock.pushes.length-1)
+			expect(filter(mock.pushes,search).length).toBe(1)
+			expect(filter(mock.pushes,search)[0]).toBe(mock.pushes[1])
 		
 		it 'should not return file pushes', ->
 			mock.pushes[0].type = "file"
 			search.type.file = false
-			expect(filter(mock.pushes,search).length).toBe(mock.pushes.length-1)
+			expect(filter(mock.pushes,search).length).toBe(1)
+			expect(filter(mock.pushes,search)[0]).toBe(mock.pushes[1])
 		
 		it 'should not return address pushes', ->
 			# #1 is an address
 			search.type.address = false
-			expect(filter(mock.pushes,search).length).toBe(mock.pushes.length-1)
+			expect(filter(mock.pushes,search).length).toBe(1)
+			expect(filter(mock.pushes,search)[0]).toBe(mock.pushes[0])

@@ -4,9 +4,9 @@ app.filter 'sent', ->
 	(pushes, filter) ->
 		pushes.filter (e) ->
 			if not filter.sent or not filter.received
-				if not filter.sent and not e.isEmitted
+				if not filter.sent and not e._isEmitted
 					return false
-				if not filter.received and e.isEmitted
+				if not filter.received and e._isEmitted
 					return false
 
 			return true
