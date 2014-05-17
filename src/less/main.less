@@ -160,17 +160,47 @@ body {
 	}
 }
 
+[ng-messages] {
+	width: 200px;
+	margin: 2px auto -4px;
+	min-height: 22px;
+	position: relative;
+
+	[ng-message] {
+		position: absolute;
+		border-radius: 5px 5px 0 0;
+		border: 2px solid #BBB;
+		border-bottom-width: 0px;
+		width: 100%;	
+		color: grey;	
+	}
+
+	
+}
 input, textarea, select {
 	min-width: 200px;
 	border-radius: 5px;
 	border: 2px solid #BBB;
 	padding: 5px 10px;
 	outline: none;
+	[ng-messages].ng-active + & {
+		border-radius: 0 0 5px 5px;
+	}
 }
 
 fieldset {
 	border: 1px dotted #AAA; 
 }
+
+.ng-invalid-required {
+	border-color: orange;
+}
+.ng-dirty {
+	&.ng-invalid {
+		border-color: @red;
+	}
+}
+
 
 
 // .icon-input {

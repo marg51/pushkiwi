@@ -17,7 +17,7 @@ div
 			div(flex='3')
 				div(ui-view='')
 				div
-					button.button.success.animate(ng-click='save()',ng-disabled='send') 
+					button.button.success.animate(ng-click='save()',ng-disabled='send || add.$invalid') 
 						span(ng-hide='send') Send !
 						span(ng-show='send') 
 							i.fa.fa-spinner.fa-spin
