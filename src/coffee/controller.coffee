@@ -65,6 +65,23 @@ app.controller 'PushbulletCtrl', ($scope,pushbulletWsService,pushbulletService,M
 		$scope.contacts = list
 		
 app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope) ->
+	$scope.form = {}
+	# retrieve friends and own devices
+	pushbulletService.getContacts().then (list) ->
+		$scope.form.contacts = list
+		for el in list 
+			el.checked = true
+
+	$scope.form.type = 
+		note: true
+		link: true
+		list: true
+		file: true
+		address: true
+
+	$scope.form.dir = 
+		sent: true
+		received: true
 
 app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q, $animate) ->
 	$scope.form = {}

@@ -1,4 +1,27 @@
 h3 List
+
+form(name='params')
+	flexbox
+		div(flex='1')
+			label Sent
+				input(type='checkbox', ng-model='form.dir.sent')
+			label Received
+				input(type='checkbox', ng-model='form.dir.received')
+				
+		div(flex='1')
+			button.button.animate.animate-reveal(ng-repeat='contact in form.contacts',ng-click='form.contacts[$index].checked = !form.contacts[$index].checked',ng-class='{success:form.contacts[$index].checked}',style='margin:0 1px') {{contact.name}}
+		div(flex='1')
+			label Notes
+				input(type='checkbox', ng-model='form.type.note')
+			label Links
+				input(type='checkbox', ng-model='form.type.link')
+			label Lists
+				input(type='checkbox', ng-model='form.type.list')
+			label Files
+				input(type='checkbox', ng-model='form.type.file')
+			label Addresses
+				input(type='checkbox', ng-model='form.type.address')
+
 flexbox(column)
-	div.animate.animate-reveal(ng-repeat='row in list')
+	div.animate.animate-reveal(ng-repeat='row in list | sent:form.dir | contacts:form | type:form ')
 		div(pushbullet="row",ctrl='$parent.ctrl',center)
