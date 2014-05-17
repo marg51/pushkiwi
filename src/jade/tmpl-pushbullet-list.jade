@@ -15,6 +15,8 @@ form(name='params')
 			button.button.animate.fa.fa-2x.fa-copy.type-file(ng-click='form.type.file = !form.type.file',ng-class='{active:form.type.file}',title='File')
 			button.button.animate.fa.fa-2x.fa-map-marker.type-address(ng-click='form.type.address = !form.type.address',ng-class='{active:form.type.address}',title='Address')
 
+br
+
 flexbox(column)
 	div.animate.animate-opacity(ng-repeat='row in list | sent:form.dir | contacts:form | type:form ')
 		div(pushbullet="row",ctrl='$parent.ctrl',center)
