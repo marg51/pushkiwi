@@ -16,7 +16,6 @@
 
   },
   "dependencies": {
-    "moment": "~2.6.0",
     "ws": "~0.4.31",
     "requirejs": "~2.1.11",
     "grunt": "^0.4.4",

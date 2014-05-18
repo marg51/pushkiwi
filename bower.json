@@ -21,7 +21,8 @@
     "fontawesome": "~4.0.3",
     "angular-loading-bar": "~0.4.1",
     "lodash": "~2.4.1",
-    "angular-messages": "git@github.com:marg51/bower-angular-messages.git#~1.3.0-build.2710+sha.96fa705"
+    "angular-messages": "git@github.com:marg51/bower-angular-messages.git#~1.3.0-build.2710+sha.96fa705",
+    "moment": "~2.6.0"
   },
   "resolutions": {
     "angular": "~1.3.0"

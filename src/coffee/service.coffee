@@ -23,7 +23,10 @@ app.factory 'User', ($q) ->
 app.factory 'pushbulletWsService', ($state, $q, $rootScope, $timeout, User) ->
 
 	ready = false
-	WebSocket = require('ws')
+	if require?
+		WebSocket = require('ws')
+	else
+		WebSocket = {}
 	$scope = {}
 	$scope.RETRY_AFTER = 5
 
@@ -67,4 +70,11 @@ app.factory 'pushbulletWsService', ($state, $q, $rootScope, $timeout, User) ->
 		return true
 
 	return $scope
+
+app.factory '_', ->
+	if global? and global._?
+		return global._
+	if _?
+		return _
+	throw new Error('No lodash found')
 		

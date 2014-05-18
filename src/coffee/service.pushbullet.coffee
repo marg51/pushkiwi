@@ -61,10 +61,8 @@ app.provider 'pushbulletService', ->
 
 	return provider
 
-app.service 'MyPushes', (pushbulletService, $rootScope) ->
+app.service 'MyPushes', (pushbulletService, $rootScope, _) ->
 	$scope = {}
-
-	_ = _ || global._
 
 	$scope._save = ->
 		data = 

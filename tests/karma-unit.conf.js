@@ -11,6 +11,7 @@ module.exports = function(config) {
       "bower_components/angular-loading-bar/build/loading-bar.min.js",
       "bower_components/lodash/dist/lodash.min.js",
       "bower_components/angular-messages/angular-messages.min.js",
+      "bower_components/moment/min/moment.min.js",
 
 
       
