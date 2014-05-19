@@ -78,3 +78,9 @@ app.factory '_', ->
 		return _
 	throw new Error('No lodash found')
 		
+app.factory 'moment', ->
+	if global? and global.moment?
+		return global.moment
+	if moment?
+		return moment
+	throw new Error('no `moment` found')

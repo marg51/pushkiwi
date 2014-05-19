@@ -2,7 +2,7 @@ app = angular.module 'kiwi.pushbullet'
 
 # http://docs.uto.io/fr.multi-templates-directive.html
 
-app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService, MyPushes) ->
+app.directive 'pushbullet', ($http, $templateCache, $compile, pushbulletService, MyPushes, moment) ->
 	templateUrl: 'dir-pushbullet.html'
 	scope:
 		pushbullet:'='
