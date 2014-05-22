@@ -1,7 +1,7 @@
 app = angular.module 'kiwi.pushbullet'
 
 # default controller, called inside the main view, index.html
-app.controller 'MainCtrl', ($scope,$rootScope,$state) ->
+app.controller 'MainCtrl', ($scope,$rootScope,$state,bridgeService) ->
 	$rootScope.$on '$stateChangeError', (event, toState, toParams, fromState, fromParams, error) ->
 		if error? then console.log "error", error
 		$scope.errorMessage = if error.message then error.stack else error
@@ -83,8 +83,7 @@ app.controller 'PushbulletListCtrl', ($scope, pushbulletService, $rootScope) ->
 		sent: true
 		received: true
 
-app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q, $animate) ->
-	$scope.form = {}
+app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q, $animate, bridgeService) ->
 	_preSave = angular.noop
 
 	# <div> which has list of contacts, animated when no contact selected
@@ -134,7 +133,7 @@ app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q, $animat
 
 	# called by PushbulletAddItemCtrl, => when we select another type of push
 	$scope.init = ->
-		$scope.form = {}
+		$scope.form = bridgeService.getData()
 		$scope.preSave(angular.noop)
 
 
