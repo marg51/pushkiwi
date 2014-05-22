@@ -138,7 +138,7 @@ app.controller 'PushbulletAddCtrl', ($scope,pushbulletService,$state,$q, $animat
 		$scope.preSave(angular.noop)
 
 
-app.controller 'PushbulletAddItemCtrl', ($scope,$state) ->
+app.controller 'PushbulletAddItemCtrl', ($scope,$state,pushbulletService) ->
 	$scope.init()
 	# the type is guessed, based on the url
 	$scope.form.type = $state.current.url.slice(1)
@@ -164,6 +164,20 @@ app.controller 'PushbulletAddItemCtrl', ($scope,$state) ->
 		# default: 2 rows
 		$scope.addItem()
 		$scope.addItem()
+
+	if $scope.form.type is 'file'
+		$scope.$watch 'form.local_file', (newValue, oldValue) ->
+			console.log arguments
+			if newValue?
+				$scope.file_upload = true
+				$scope.form.file_type = newValue.type
+				$scope.form.file_name = newValue.name
+				pushbulletService.uploadFile(newValue).then (url) ->
+					console.log url
+					$scope.file_upload = false
+					$scope.form.file_url = url
+
+
 
 
 

@@ -8,7 +8,7 @@ app.provider 'pushbulletService', ->
 
 	provider.API_ENDPOINT = 'https://api.pushbullet.com/v2/'
 
-	provider.$get = ($http, Base64, $q, User) ->
+	provider.$get = ($http, Base64, $q, User, $rootScope) ->
 		# app.factory 'pushbulletService', ($state, $q, $http, Base64, User) ->
 
 		$scope = {}
@@ -54,6 +54,29 @@ app.provider 'pushbulletService', ->
 				deferred.resolve(list)
 			).catch (e) ->
 				deferred.reject(e)
+
+			return deferred.promise
+
+		$scope.uploadFile = (file) ->
+			deferred = $q.defer()
+			if not require
+				deferred.reject("Not in Node.JS env")
+
+			$scope.query("upload-request?file_name=#{file.name}&file_type=#{file.type}").then (result) ->
+				data = result.data
+				command = "curl -i https://s3.amazonaws.com/pushbullet-uploads
+ -F awsaccesskeyid=#{data.awsaccesskeyid}
+ -F acl=#{data.acl}
+ -F key=#{data.key}
+ -F signature=#{data.signature}
+ -F policy=#{data.policy}
+ -F content-type=#{file.type}
+ -F file=@#{file.path}"
+
+				spawn = require('child_process').exec
+				spawn command, (err, stdout, stderr) ->
+					deferred.resolve(result.file_url)
+					$rootScope.$apply()
 
 			return deferred.promise
 

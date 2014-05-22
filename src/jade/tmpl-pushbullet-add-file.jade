@@ -3,5 +3,8 @@ br
 div.animate.animate-opacity(ng-messages='add.file_type.$error',ng-messages-include='error-messages.html')
 input.animate(name='file_type',ng-model='form.file_type',placeholder='Type (ex: image/jpeg)',required, xtype)
 br
+input.animate(type='file',fileread='form.local_file')
+i.fa.fa-spin.fa-spinner(ng-show='file_upload')
+
 div.animate.animate-opacity(ng-messages='add.file_url.$error',ng-messages-include='error-messages.html')
 textarea.animate(name='file_url',ng-model='form.file_url',placeholder='Link of file (ex: http://example/music.mp3)', xlink, required)

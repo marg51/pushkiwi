@@ -1,5 +1,13 @@
 app = angular.module 'kiwi.pushbullet'
 
+app.directive "fileread", ->
+	scope: 
+		fileread: "="
+	link: (scope, element, attributes) ->
+		element.bind "change", (changeEvent) ->
+			scope.fileread = angular.copy changeEvent.target.files[0]
+			scope.$apply()
+
 LINK_REGEX = /:\/\//
 app.directive 'xlink', ->
 	restrict: 'A'
