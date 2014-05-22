@@ -57,6 +57,16 @@ app.provider 'pushbulletService', ->
 
 			return deferred.promise
 
+		$scope.getFileStat = (path) ->
+			return if not require
+			mime = require('mime')
+			type = mime.lookup(path)
+
+			tmp = path.split('/')
+			name = tmp[tmp.length-1]
+
+			{name,path,type}
+
 		$scope.uploadFile = (file) ->
 			deferred = $q.defer()
 			if not require

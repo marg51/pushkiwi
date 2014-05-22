@@ -166,16 +166,24 @@ app.controller 'PushbulletAddItemCtrl', ($scope,$state,pushbulletService) ->
 		$scope.addItem()
 
 	if $scope.form.type is 'file'
+		upload = (obj) ->
+			$scope.file_upload = true
+			$scope.form.file_type = obj.type
+			$scope.form.file_name = obj.name
+			pushbulletService.uploadFile(obj).then (url) ->
+				$scope.file_upload = false
+				$scope.form.file_url = url
+
 		$scope.$watch 'form.local_file', (newValue, oldValue) ->
-			console.log arguments
-			if newValue?
-				$scope.file_upload = true
-				$scope.form.file_type = newValue.type
-				$scope.form.file_name = newValue.name
-				pushbulletService.uploadFile(newValue).then (url) ->
-					console.log url
-					$scope.file_upload = false
-					$scope.form.file_url = url
+			if newValue
+				upload(newValue)
+
+		$scope.upload = ->
+			if $scope.form.local_file_url
+				obj = pushbulletService.getFileStat($scope.form.local_file_url)
+				upload(obj)
+				
+				
 
 
 
