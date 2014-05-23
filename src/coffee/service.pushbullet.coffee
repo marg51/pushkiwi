@@ -73,8 +73,13 @@ app.provider 'pushbulletService', ->
 				deferred.reject("Not in Node.JS env")
 
 			$scope.query("upload-request?file_name=#{file.name}&file_type=#{file.type}").then (result) ->
-				data = result.data
-				command = "curl -i https://s3.amazonaws.com/pushbullet-uploads
+				$scope._uploadFile(file,result.data)
+				
+
+			return deferred.promise
+
+		$scope._uploadFile = (file, data) ->
+			command = "curl -i #{result.upload_url}
  -F awsaccesskeyid=#{data.awsaccesskeyid}
  -F acl=#{data.acl}
  -F key=#{data.key}
@@ -83,12 +88,11 @@ app.provider 'pushbulletService', ->
  -F content-type=#{file.type}
  -F file=@#{file.path}"
 
-				spawn = require('child_process').exec
-				spawn command, (err, stdout, stderr) ->
-					deferred.resolve(result.file_url)
-					$rootScope.$apply()
+			spawn = require('child_process').exec
+			spawn command, (err, stdout, stderr) ->
+				deferred.resolve(result.file_url)
+				$rootScope.$apply()
 
-			return deferred.promise
 
 		return $scope
 
