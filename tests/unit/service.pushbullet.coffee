@@ -140,7 +140,7 @@ describe 'pushkiwi - Services -', ->
 
 				$httpBackend.flush()
 
-				expect(service._uploadFile).toHaveBeenCalledWith(file,mock['upload-request'][0].data)
+				expect(service._uploadFile).toHaveBeenCalledWith(file,mock['upload-request'][0])
 				
 
 	describe 'MyPushes - ', ->

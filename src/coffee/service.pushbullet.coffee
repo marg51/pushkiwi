@@ -73,12 +73,13 @@ app.provider 'pushbulletService', ->
 				deferred.reject("Not in Node.JS env")
 
 			$scope.query("upload-request?file_name=#{file.name}&file_type=#{file.type}").then (result) ->
-				$scope._uploadFile(file,result.data)
+				$scope._uploadFile(file,result)
 				
 
 			return deferred.promise
 
-		$scope._uploadFile = (file, data) ->
+		$scope._uploadFile = (file, result) ->
+			data = result.data
 			command = "curl -i #{result.upload_url}
  -F awsaccesskeyid=#{data.awsaccesskeyid}
  -F acl=#{data.acl}
