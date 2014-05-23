@@ -116,6 +116,31 @@ describe 'pushkiwi - Services -', ->
 
 				$httpBackend.flush()
 				expect(called).toBe true
+
+		describe 'uploadFile', ->
+			file = undefined
+			beforeEach ->
+				file = 
+					path: '/some/path.png'
+					name: 'path.png'
+					type: 'some/type'
+
+				spyOn(service,'_uploadFile')
+
+				$httpBackend.expectGET(API_ENDPOINT+"upload-request?file_name=#{file.name}&file_type=#{file.type}").respond(mock['upload-request'][0])
+
+
+			it 'should query upload-request', ->
+				service.uploadFile(file)
+
+				$httpBackend.flush()
+
+			it 'should call ._uploadFile', ->
+				service.uploadFile(file)
+
+				$httpBackend.flush()
+
+				expect(service._uploadFile).toHaveBeenCalledWith(file,mock['upload-request'][0].data)
 				
 
 	describe 'MyPushes - ', ->
