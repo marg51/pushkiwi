@@ -31,6 +31,7 @@ app.provider 'bridgeService', ->
 			lastData = req.params
 			$state.go("pushbullet.add.#{req.params.type}",req.params,reload:true)
 			Window.show()
+			Window.focus()
 			res.send({status:'success'})
 
 		getData: ->
