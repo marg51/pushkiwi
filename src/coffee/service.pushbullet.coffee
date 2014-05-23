@@ -68,16 +68,16 @@ app.provider 'pushbulletService', ->
 			{name,path,type}
 
 		$scope.uploadFile = (file) ->
-			deferred = $q.defer()
 			if not require
+				deferred = $q.defer()
 				deferred.reject("Not in Node.JS env")
+				return deferred.promise
 
-			$scope.query("upload-request?file_name=#{file.name}&file_type=#{file.type}").then (result) ->
-				$scope._uploadFile(file,result)
+			promise = $scope.query("upload-request?file_name=#{file.name}&file_type=#{file.type}").then (result) ->
+				return $scope._uploadFile(file,result)
 				
-
-			return deferred.promise
-
+			return promise
+			
 		$scope._uploadFile = (file, result) ->
 			deferred = $q.defer()
 
