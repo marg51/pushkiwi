@@ -3,11 +3,14 @@ br
 div.animate.animate-opacity(ng-messages='add.file_type.$error',ng-messages-include='error-messages.html')
 input.animate(name='file_type',ng-model='form.file_type',placeholder='Type (ex: image/jpeg)',required, xtype)
 br
-input.animate(ng-model='form.local_file_url',placeholder='/path/to/file.png')
-i.fa.fa-upload(ng-click='upload()')
-br
-input.animate(type='file',fileread='form.local_file')
-i.fa.fa-spin.fa-spinner(ng-show='file_upload')
+fieldset
+	legend Upload a file
+	input.animate(ng-model='form.local_file_url',placeholder='/path/to/file.png')
+	br
+	input.animate(type='file',fileread='form.local_file',style='width:1px')
+	br
+	button.button.fa.animate(ng-click='upload()',ng-disabled='file_upload',ng-class='{success:form.local_file_url}')
+		i.fa(ng-class='{"fa-upload":!file_upload,"fa-spin fa-spinner":file_upload}')
 
 div.animate.animate-opacity(ng-messages='add.file_url.$error',ng-messages-include='error-messages.html')
 textarea.animate(name='file_url',ng-model='form.file_url',placeholder='Link of file (ex: http://example/music.mp3)', xlink, required)
