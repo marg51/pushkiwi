@@ -79,6 +79,8 @@ app.provider 'pushbulletService', ->
 			return deferred.promise
 
 		$scope._uploadFile = (file, result) ->
+			deferred = $q.defer()
+
 			data = result.data
 			command = "curl -i #{result.upload_url}
  -F awsaccesskeyid=#{data.awsaccesskeyid}
@@ -93,6 +95,8 @@ app.provider 'pushbulletService', ->
 			spawn command, (err, stdout, stderr) ->
 				deferred.resolve(result.file_url)
 				$rootScope.$apply()
+
+			return deferred.promise
 
 
 		return $scope
