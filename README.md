@@ -64,6 +64,12 @@ You have to install [node-osx-notifier](https://github.com/azoff/node-osx-notifi
 node-osx-notifier 1337
 ```
 
+#### OS X services
+
+![](http://i.uto.io/jI2Cg)
+
+Workflows are located into `/services`, you can install them. `Pushkiwi` must be running when executed. 
+
 ## Roadmap
 
 
@@ -71,13 +77,13 @@ node-osx-notifier 1337
 
 - **refactor**
  - [x] use Angular's $http instead of NodeJS'
- - [ ] merge _main.coffee into others files
+ - [x] merge _main.coffee into others files
  - [x] We can be notified from pushbullet when there is an update (new push is an update, deleting a push leads to an update, etc.), but it does not tell anything else. We need to find a way to discover what happened. (diff ?)
- 	- as soon as we know what is updated, uses natives notifications systems (Mac OS X: ok)
+ 	- [x] as soon as we know what is updated, uses natives notifications systems 
 - **Unit tests**
  - [ ] TDR (test driven refactoring) sounds really cool
 - **form validation**
- - [ ] So far, there is no validation at all
+ - [x] So far, there is no validation at all
 - **improve load time**
  - [x] pushbullet isn't really fast so far, we need to cache as many requests as we can, including `GET /contacts` and `GET /pushes`
 - **upload files**
@@ -89,4 +95,4 @@ node-osx-notifier 1337
 #### Later
 
 - [ ] build a better (more robust) pushbullet API client, and outsource it
-- [ ] Allow to upload a file/note/email/... from anywhere on the desktop via right click ( not a clue how to do that, but MacVim do it, should be fun )
+- [x] Allow to upload a file/note/email/... from anywhere on the desktop via right click ( not a clue how to do that, but MacVim do it, should be fun )
